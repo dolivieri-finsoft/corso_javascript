@@ -1,0 +1,23 @@
+Fondamenti di programmazione
+
+Linguaggi di programmazione, tipi e esecuzioni
+
+•	Linguaggio Macchina (istruzioni 0, 1, organizzate per parole tipo byte, 16bit, ..)
+•	Assembly (nome quello dl processore) – istruzioni simboliche ma 1:1 con il linguaggio macchina – anzichè scrivere 1100000 = 96 = 0x60 = LDA
+•	C (Dennis Ritchie -  Brian Kernighan) è un linguaggio di livello più alto che necessità di essere tradotto in LM – quindi compilato (da un programma inizialmente scritto in assembly): vuol dire che dato un testo scritto in C il compilatore lo traduce una tantumin un equivalente programma LM – matching 1:N
+•	Come C e simili (compilati): Pascal, Fortran, ..
+•	Linguaggi interpretati: Basic, .. PHP, Python, Javascript – traduzione avviene tutte le volte che il testo del programma viene eseguito e in tempo reale, interpretato “istruzione per istruzione”. Non necessita del tempo di compilazione ma è più lento nell’esecuzione di un compilato. Ma ha un vantaggio: può essere eseguito senza riscrittura su più architetture/processori/LM diversi.
+•	Compilati Just in Time (JIT) (php, js)
+•	Compilati JIT (esecuzione prima volta e cache) + Cache (esecuzione volte successive dalla cache) in alcuni casi di .Net
+•	Compilati Bytecode (macchina astratta) – questo risolve il problema di 1 linguaggio -> da tradurre/compilare in molti target per viaggiare a velocità LM:
+linguaggio compilato in un LM ASTRATTO (bytecode) – questo viene poi eseguito su un Processore Virtuale di Linguaggio detta anche Macchina Virtuale di Linguaggio che lo traduce (interpreta) in LM fisico del processore sotto
+è il caso di JAVA e .Net
+•	(ritorno al passato – compilati puri super ottimizzati – vedi RUSTlang)
+
+Procedurali, Object Based, Object Oriented, non tipati, fortemente tipati..
+
+Linguaggi tipati, fortemente tipati, non tipati (inteso come tipi dati)
+
+•	Linguaggi procedurali C, Pascal, Basic – sequenziali i cui il codice si divide e organizza per moduli/funzioni/procedure
+•	Linguaggi Object based e Object oriented – C++, Java, .Net, Ada, ..
+
