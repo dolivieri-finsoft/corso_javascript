@@ -21,3 +21,8 @@ Linguaggi tipati, fortemente tipati, non tipati (inteso come tipi dati)
 •	Linguaggi procedurali C, Pascal, Basic – sequenziali i cui il codice si divide e organizza per moduli/funzioni/procedure
 •	Linguaggi Object based e Object oriented – C++, Java, .Net, Ada, ..
 
+--
+Fondamenti di Versioning, ovvero GIT
+
+libro ufficiale e gratuito:
+https://git-scm.com/book/en/v2
