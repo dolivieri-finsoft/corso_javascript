@@ -58,6 +58,4 @@ Buone pratiche:
 2) fare PUSH tutte le volte necessarie e significative (di cui è utile conservare una foto)
 deve essere fatto almeno una volta al giorno..
 
-ora facciamo una pausa caffè..
-fine della pausa caffè
 ripartiamo con i fondamenti di logica usando Visual Studio Code e Javascript in browser
