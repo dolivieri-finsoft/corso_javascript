@@ -26,3 +26,34 @@ Fondamenti di Versioning, ovvero GIT
 
 libro ufficiale e gratuito:
 https://git-scm.com/book/en/v2
+
+git - software scritto originariamente da Linus Torvalds
+
+. gestire fotografie/versioni del poprio codice con commenti alle modifiche, chi ha fatto cosa, ..
+. condividere il codice con altri colleghi
+. di avere un backup del proprio codice su un server centrale (che coordina ttte le linee di codice)
+. avere più linee di codice parallele
+. gestire in modo automatico (quasi sempre) i cosiddetti merge
+
+punto di partenza una directory sotto la quale c'è tutto il progetto..
+dentro questa directory, olter i file e le sottodirectory etc. del progetto GIT crea e mantiene una directory nascosta: .git
+dentro .git, git scrive tutto quello che serve per manteere lo storico delle versioni, configurazione del repository remoto, etc. etc. del mio codice
+
+1) git mantiene lo storico delle versioni sia sulla macchina dello sviluppatore, sia sul server
+-> vantaggio, si può lavorare anche offline
+2) fare una fotografia (snapshot) del nostro codice avviene in due passaggi: metto i file che mi interessa fotografare in STAGE e poi faccio COMMIT con una descrizione di cosa ho fatto.
+questa fotografia è LOCALE
+3) quando una fotografia si può o eve rilasciare sul server affinchè tutti la vedano si fa una cosiddetta PUSH
+ATTENZIONE:
+per fare PUSH è necessario fare prima PULL che è il suo esatto contrario
+PUSH: legge dal server le ultime fotografie e l sincronizza, unisce con la fotografia che abbiamo in locale
+se la versione sul server appunto è > di quella in locale GIT ci chiederà prima di fare un pull (e in automatico dei merge dei file in collisione), dopo di chè sarà possibile fare una push.
+
+MERGE?
+spesso git riesce a unire le modifiche su uno stesso file in automatico, permettendo così di committare e pushaer senza problemi
+sE NON RIESCE - errore -> e i programmatori devono ridimere la questione (tipicamente uniscono a mano pushano la modifica della precedentemente pushata, rollback della versione che non si riesce a pushare, pull della nuova e tutto torna a posto).
+
+Buone pratiche:
+1) fare PULL spesso.. intanto ho importato localmente la foto (quindi backup) - sono sincrono col server
+2) fare PUSH tutte le volte necessarie e significative (di cui è utile conservare una foto)
+deve essere fatto almeno una volta al giorno..
