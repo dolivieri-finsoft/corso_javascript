@@ -3,44 +3,57 @@
 		<title>lezione 01 flusso e logica</title>
 	</head>
 	<body>
-		<h1>Lezione 01 flusso e logica JS</h1>
+		<h1 id="titolo_principale">Lezione 01 flusso e logica JS</h1>
 		<p>Se usi chrome apri la finestra developer tools (..., altri strumenti, strumenti per sviluppatori).</p>
 		<p>Per vedere cosa fa il javascript di esempio mostrare il tab console.</p>
+
+		<script>
+
+			window.addEventListener(
+				'DOMContentLoaded', 
+				function(event){
+					console.log('DOM fully loaded and parsed');
+
+					console.log("Lezione 01 flusso e logica JS");
+
+					let a=5;
+					console.log("proviamo la if then else - ISTRUZIONE BIFORCAZIONE CONDIZIONALE");
+					if (a==4){
+						console.log("1. sono entrato nel ramo if");
+					} else {
+						console.log("1. sono entrato nel ramo else");
+					}
+
+					if (a>4){
+						console.log("2. sono entrato nel ramo if");
+					} else {
+						console.log("2. sono entrato nel ramo else");
+					}
+
+					if (a!==4){
+						console.log("3. sono entrato nel ramo if");
+					} else {
+						console.log("3. sono entrato nel ramo else");
+					}
+
+					if(a==1) {
+						console.log("ramo 4.1");
+					} else if(a==2){
+						console.log("ramo 4.2");
+					} else if (a==3){
+						console.log("ramo 4.3");
+					} else {
+						console.log("ramo 4.finale");
+					}
+
+					document.getElementById('titolo_principale').innerHTML = "ho cambiato il titolo";
+					document.getElementById('titolo_2').innerHTML = "la mamma va al mercato";
+
+				}
+			);
+
+		</script>
+
+		<h2 id="titolo_2">altro titolo</h2>
 	</body>
-
-<script>
-	
-	console.log("Lezione 01 flusso e logica JS");
-	let a=5;
-	console.log("proviamo la if then else - ISTRUZIONE BIFORCAZIONE CONDIZIONALE");
-	if (a==4){
-		console.log("1. sono entrato nel ramo if");
-	} else {
-		console.log("1. sono entrato nel ramo else");
-	}
-
-	if (a>4){
-		console.log("2. sono entrato nel ramo if");
-	} else {
-		console.log("2. sono entrato nel ramo else");
-	}
-
-	if (a!==4){
-		console.log("3. sono entrato nel ramo if");
-	} else {
-		console.log("3. sono entrato nel ramo else");
-	}
-
-	if(a==1) {
-		console.log("ramo 4.1");
-	} else if(a==2){
-		console.log("ramo 4.2");
-	} else if (a==3){
-		console.log("ramo 4.3");
-	} else {
-		console.log("ramo 4.finale");
-	}
-
-</script>
-
 </html>
