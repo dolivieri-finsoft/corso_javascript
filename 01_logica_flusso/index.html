@@ -86,6 +86,7 @@
 					//console.log("fuori (incDIVERSO) c=", c);
 
 					// ciclo infinito terminato internamente
+					// while PRIMA TEST CONDIZIONE poi esecuzione blocco
 					while(true){
 						let casuale = Math.floor(Math.random()*100);
 						console.log("casuale=", casuale);
@@ -97,6 +98,32 @@
 					let dato=0;
 					while(dato<10){
 						dato = prompt("inserisci un numero");
+					}
+
+					// per fare PRIMA ESECUZIONE BLOCCO e poi TEST CONDIZIONE CICLO
+					
+					let f=2;
+					do {
+						console.log("f=",f);
+						f = f+1;
+					} while (f<10);
+
+					// break funziona anche nell for
+					// break interrompe il ciclo ed esce dal suo scopo
+
+					for(let c=0; c<100; c=c+2){
+						console.log("(incPARI) c=", c);
+						if(c==32) break;
+						// altre linee qui e altri cicli non verrebbero eseguiti dopo il break..
+					}
+
+					// continue
+					// la continue serve a interrompere il blocco di ciclo ed eseguire il ciclo successivo
+
+					for(let c=0; c<100; c=c+2){
+						console.log("(incPARI2) c=", c);
+						if(c != 10) continue;
+						console.log("trovato 10");
 					}
 
 				}
