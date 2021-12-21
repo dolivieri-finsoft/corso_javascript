@@ -9,6 +9,8 @@
 
 		<script>
 
+			"use strict";
+
 			window.addEventListener(
 				'DOMContentLoaded', 
 				function(event){
@@ -48,6 +50,17 @@
 
 					document.getElementById('titolo_principale').innerHTML = "ho cambiato il titolo";
 					document.getElementById('titolo_2').innerHTML = "la mamma va al mercato";
+
+					// variabili case sensitive e modo giusto di usarle
+					// usate SEMPRE let e NON var
+					let pippo = 5;
+					console.log("pippo=", pippo);
+					pippo = 6;
+					console.log("pippo=", pippo);
+					pippo = 7;
+					console.log("pippo=", pippo);
+					
+					// loop
 
 				}
 			);
