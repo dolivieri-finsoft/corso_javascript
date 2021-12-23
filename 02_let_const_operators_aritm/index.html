@@ -33,6 +33,35 @@
 
 					let animale = document.getElementById("animale");
 					animale.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Greenland_467_%2835130903436%29.jpg/220px-Greenland_467_%2835130903436%29.jpg";
+				
+				  let comp1 = ( 1 == "1" );		// operatore di comparazione lasco/ ovvero prima uniforma i tipi e poi compara
+					myprint("comp1 = "+comp1);
+
+					let comp2 = ( 2 === "2" );	// operatore rigido di comparazione / NON trasforma e compara se tipi e valore coincidono
+					myprint("comp2 = "+comp2);
+
+					let comp3 = ( 3 == "3.0000000000000000000000000000000000000001" );  // caso strano dovuto ad erroe approssimazione
+					myprint("comp3 = "+comp3);
+
+					let comp4 = ( 4 === 4.0000000000000000000000000001 ); // come precedente anche con comparazione tipata
+					myprint("comp4 = "+comp4);
+
+					myprint("operatori aritmetici");
+					myprint("4+2="+(4+2));
+					myprint("4-2="+(4-2));
+					myprint("4*2="+(4*2));
+					myprint("4/2="+(4/2));
+					myprint("4**2="+(4**2));	// potenza
+					myprint("15%9="+(15%9));	// modulo
+					
+					let v=15;	// incremento e decremento postposto
+					myprint("(v=15) v++=" + (v++));
+					myprint("v--=" +(v--));
+					myprint("v=" + v);
+
+					v=15;	// incremento e decremento anteposto
+					myprint("(v=15) ++v=" + (++v));
+					myprint("--v=" + (--v));
 				}
 			);
 
