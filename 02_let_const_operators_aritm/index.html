@@ -11,18 +11,24 @@
 
 			"use strict";
 
+			function myprint(s){
+				console.log(s);
+				document.getElementById('output_codice').innerHTML += s+"<br>";
+			}
+
 			window.addEventListener(
 				'DOMContentLoaded', 
 				function(event){
-					console.log('DOM fully loaded and parsed');
+					myprint('DOM fully loaded and parsed');
 
-					console.log("lezione 02 let, const, operatori e aritmetica");
+					myprint("lezione 02 let, const, operatori e aritmetica");
 
 				}
 			);
 
 		</script>
 
-		<h2 id="titolo_2">altro titolo</h2>
+		<h2 id="titolo_2">Output del programma</h2>
+		<div id="output_codice"></div>
 	</body>
 </html>
