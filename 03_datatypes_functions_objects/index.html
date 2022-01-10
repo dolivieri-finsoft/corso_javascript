@@ -14,8 +14,11 @@
 			// datatypes
 			// https://www.w3schools.com/js/js_datatypes.asp
 
-			function num_asc_comp(n1, n2){
-				return n1-n2;
+			function num_asc_comp(primo_el, secondo_el){
+				return primo_el - secondo_el;
+			}
+			function num_desc_comp(primo_el, secondo_el){
+				return secondo_el - primo_el;
 			}
 
 			window.addEventListener(
@@ -68,6 +71,7 @@
 					document.getElementById("output_codice").innerHTML += numeri + '<br>';
 					document.getElementById("output_codice").innerHTML += numeri.sort() + '<br>';
 					document.getElementById("output_codice").innerHTML += numeri.sort(num_asc_comp) + '<br>';
+					document.getElementById("output_codice").innerHTML += numeri.sort(num_desc_comp) + '<br>';
 
 					// unire un array in stringa separata
 					document.getElementById("output_codice").innerHTML += numeri.join('(ciao)') + '<br>';
