@@ -14,6 +14,10 @@
 			// datatypes
 			// https://www.w3schools.com/js/js_datatypes.asp
 
+			function num_asc_comp(n1, n2){
+				return n1-n2;
+			}
+
 			window.addEventListener(
 				'DOMContentLoaded', 
 				function(event){
@@ -30,13 +34,47 @@
 					let animali = [];
 					animali.push("cane");		// push aggiunge alla fine
 					animali.push("gatto");
-					animali.unshift("canarino");
+					animali.unshift("canarino"); // unshift aggiunge in testa
 					animali.unshift("zebra");
+					animali.splice(2, 0, "cinghiale", "elefante"); // splice può essere usata per inserire e cancellare elementi in un certo indice
+					animali[4] = "coniglio"; // come sostituire un valore dell'array
 					
 					document.getElementById("output_codice").innerHTML += animali.length + '<br>';
 					document.getElementById("output_codice").innerHTML += animali + '<br>';
 					document.getElementById("output_codice").innerHTML += animali.reverse() + '<br>';
 					document.getElementById("output_codice").innerHTML += animali.sort() + '<br>';
+
+					let ultimo_el = animali.pop(); // toglie ultimo elemento e lo torna
+					document.getElementById("output_codice").innerHTML += animali + '<br>';
+
+					let primo_el = animali.shift(); // toglie primo elemento e lo torna
+					document.getElementById("output_codice").innerHTML += animali + '<br>';
+
+					let terzo_el = animali.splice(2, 1); // toglie indice 2 (quindi terzo elemento) elemento e lo torna
+					document.getElementById("output_codice").innerHTML += animali + '<br>';
+
+					// cosa succede se chiedo o cerco di leggere un indice che non c'è
+					document.getElementById("output_codice").innerHTML += animali[10] + '<br>';
+					// ottengo undefined
+
+					// cosa succede se chiedo o cerco di scrivere su un indice che non c'è
+					animali[10] = "granchio";
+					document.getElementById("output_codice").innerHTML += animali + '<br>';
+					// ottengo un nuovo array lungo abbastanza per contener anche indice nuovo e tutti li intermedi vuoti
+
+					document.getElementById("output_codice").innerHTML += animali.length + '<br>';
+
+					let numeri = [1,32, 4, 18, 123];
+					document.getElementById("output_codice").innerHTML += numeri + '<br>';
+					document.getElementById("output_codice").innerHTML += numeri.sort() + '<br>';
+					document.getElementById("output_codice").innerHTML += numeri.sort(num_asc_comp) + '<br>';
+
+					// unire un array in stringa separata
+					document.getElementById("output_codice").innerHTML += numeri.join('(ciao)') + '<br>';
+
+					// ricavare array da una stringa separata
+					let giochi = ("monopoli-risiko-cluedo").split("-");
+					document.getElementById("output_codice").innerHTML += giochi + '<br>';
 				}
 			);
 
