@@ -21,6 +21,10 @@
 				return secondo_el - primo_el;
 			}
 
+			function general_asc_comp(primo_el, secondo_el){
+				//todo
+			}
+
 			window.addEventListener(
 				'DOMContentLoaded', 
 				function(event){
@@ -85,7 +89,7 @@
 
 					let array_misto = [3,2,1,"zebra",4,0,"topolino"];
 					document.getElementById("output_codice").innerHTML += array_misto + '<br>';
-					document.getElementById("output_codice").innerHTML += array_misto.sort(num_asc_comp) + '<br>';
+					document.getElementById("output_codice").innerHTML += array_misto.sort(general_asc_comp) + '<br>';
 
 					// come faccioa  sapere il tipo di un valore o variabile o costante
 					// uso typeof
