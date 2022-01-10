@@ -62,8 +62,11 @@
 
 					// cosa succede se chiedo o cerco di scrivere su un indice che non c'è
 					animali[10] = "granchio";
+					animali[11] = "balena";
 					document.getElementById("output_codice").innerHTML += animali + '<br>';
 					// ottengo un nuovo array lungo abbastanza per contener anche indice nuovo e tutti li intermedi vuoti
+
+					document.getElementById("output_codice").innerHTML += animali.sort(num_asc_comp) + '<br>';
 
 					document.getElementById("output_codice").innerHTML += animali.length + '<br>';
 
@@ -79,6 +82,18 @@
 					// ricavare array da una stringa separata
 					let giochi = ("monopoli-risiko-cluedo").split("-");
 					document.getElementById("output_codice").innerHTML += giochi + '<br>';
+
+					let array_misto = [3,2,1,"zebra",4,0,"topolino"];
+					document.getElementById("output_codice").innerHTML += array_misto + '<br>';
+					document.getElementById("output_codice").innerHTML += array_misto.sort(num_asc_comp) + '<br>';
+
+					// come faccioa  sapere il tipo di un valore o variabile o costante
+					// uso typeof
+
+					document.getElementById("output_codice").innerHTML += (typeof array_misto) + '<br>';
+					document.getElementById("output_codice").innerHTML += (typeof num_asc_comp) + '<br>';
+					document.getElementById("output_codice").innerHTML += (typeof cosa_da_comprare) + '<br>';
+
 				}
 			);
 
