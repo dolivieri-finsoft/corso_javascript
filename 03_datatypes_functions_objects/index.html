@@ -22,10 +22,21 @@
 					let cosa_da_comprare = "pane";
 
 					// la precedentre è una cosa sola, ma se voglio un elenco ordinato posso usare gli array
+					// un array di N elementi si conta da 0 .. N-1
 					const cose_da_comprare = ["pane", "latte", "uova"];
 
 					document.getElementById("output_codice").innerHTML += cose_da_comprare[0] + '<br>';
 
+					let animali = [];
+					animali.push("cane");		// push aggiunge alla fine
+					animali.push("gatto");
+					animali.unshift("canarino");
+					animali.unshift("zebra");
+					
+					document.getElementById("output_codice").innerHTML += animali.length + '<br>';
+					document.getElementById("output_codice").innerHTML += animali + '<br>';
+					document.getElementById("output_codice").innerHTML += animali.reverse() + '<br>';
+					document.getElementById("output_codice").innerHTML += animali.sort() + '<br>';
 				}
 			);
 
