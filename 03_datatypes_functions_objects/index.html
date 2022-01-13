@@ -146,6 +146,8 @@
 						"cap" : "10100",
 						"numero_scarpe" : 41,
 						"giro_vita" : 75,
+						"altezza" :175,
+						"peso": 90,
 						"altri_dati" : {
 							"telefono" : "333123456789",
 							"lingua" : "it"
@@ -153,8 +155,8 @@
 					};
 
 					document.getElementById("output_codice").innerHTML += JSON.stringify(persona) + "<br>";
-					for (let x in persona) {
-						document.getElementById("output_codice").innerHTML += x + ":" + (typeof persona[x]) + ":" + persona[x]+ "<br>";
+					for (let chiave in persona) {
+						document.getElementById("output_codice").innerHTML += chiave + ":" + (typeof persona[chiave]) + ":" + persona[chiave]+ "<br>";
 					}
 
 					// referenzio un ramo dell'oggetto e ne stampo il valore in 3 modi diversi
@@ -171,6 +173,27 @@
 					persona.altri_dati.giochi = ["risiko", "cluedo"];
 					delete persona.giro_vita;
 					document.getElementById("output_codice").innerHTML += JSON.stringify(persona) + "<br>";
+
+					let generic_calcolo_stazza = function(){
+						let stazza = this.peso / this.altezza;
+						return stazza;
+					};
+					
+					persona.calcolo_stazza = generic_calcolo_stazza;
+
+					document.getElementById("output_codice").innerHTML += persona.calcolo_stazza() + "<br>";
+					persona.altezza = 200;
+					document.getElementById("output_codice").innerHTML += persona.calcolo_stazza() + "<br>";
+
+					// questa linea da errore perchè il this non essendo persona ma probabilmente il document
+					// non avendo le chiavi peso e altezza va in bomba
+					// come facciamo a gestire una bomba senza che il programma vada in blocco?
+					try{
+						document.getElementById("output_codice").innerHTML += generic_calcolo_stazza() + "<br>";
+						
+					} catch(eccezione){
+						document.getElementById("output_codice").innerHTML += eccezione.toString() + "<br>";
+					}
 
 				}
 			);
