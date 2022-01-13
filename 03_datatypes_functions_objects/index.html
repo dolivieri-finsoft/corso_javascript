@@ -166,6 +166,12 @@
 					let lev1="altri_dati", lev2="telefono";
 					document.getElementById("output_codice").innerHTML += persona[lev1][lev2] + "<br>";
 
+					// gli oggetti in js sono dinamici posso aggiungere qualsiasi cosao cancellare a runtime
+					persona.nazione = "Italia";
+					persona.altri_dati.giochi = ["risiko", "cluedo"];
+					delete persona.giro_vita;
+					document.getElementById("output_codice").innerHTML += JSON.stringify(persona) + "<br>";
+
 				}
 			);
 
