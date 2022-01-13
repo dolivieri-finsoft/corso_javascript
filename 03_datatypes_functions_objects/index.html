@@ -120,6 +120,14 @@
 					document.getElementById("output_codice").innerHTML += (typeof num_asc_comp) + '<br>';
 					document.getElementById("output_codice").innerHTML += (typeof cosa_da_comprare) + '<br>';
 
+					array_misto.forEach(element => {
+						document.getElementById("output_codice").innerHTML += "(foreach) "+element+ '<br>';
+					});
+
+					array_misto.forEach(function(element){
+						document.getElementById("output_codice").innerHTML += "(foreach2) "+element+ '<br>';
+					});
+
 				}
 			);
 
