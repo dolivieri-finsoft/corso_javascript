@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<title>lezione 03 datatypes, functions e objects</title>
+		<link rel="stylesheet" href="./../css/style.css">
 	</head>
 	<body>
 		<h1 id="titolo_principale">lezione 03 datatypes, functions e objects</h1>
@@ -128,6 +129,12 @@
 						document.getElementById("output_codice").innerHTML += "(foreach2) "+element+ '<br>';
 					});
 
+					let indice_casuale = Math.floor(Math.random() * array_misto.length);
+					document.getElementById("output_codice").innerHTML += "(casuale) "+array_misto[indice_casuale]+ '<br>';
+
+					moment.locale('it');
+					document.getElementById("output_codice").innerHTML += "(moment-10gg) "+ moment().subtract(10, 'days').calendar();
+
 				}
 			);
 
@@ -136,5 +143,9 @@
 
 		<h2 id="titolo_2">Output del programma</h2>
 		<div id="output_codice"></div>
+	
 	</body>
+
+	<script src="./../js/moment-with-locale.js"></script>
+
 </html>
