@@ -129,11 +129,42 @@
 						document.getElementById("output_codice").innerHTML += "(foreach2) "+element+ '<br>';
 					});
 
+					// come generare un indice casuale di array
 					let indice_casuale = Math.floor(Math.random() * array_misto.length);
 					document.getElementById("output_codice").innerHTML += "(casuale) "+array_misto[indice_casuale]+ '<br>';
 
+					// usiamo la famosa libreria eserna per gestire le date moment.js
 					moment.locale('it');
-					document.getElementById("output_codice").innerHTML += "(moment-10gg) "+ moment().subtract(10, 'days').calendar();
+					document.getElementById("output_codice").innerHTML += "(moment-10gg) "+ moment().subtract(10, 'days').calendar() + '<br>';
+
+
+					// come fare a ciclare tutte le proprietà di un oggetto?
+					let persona = {
+						"nome" : "Giovanni",
+						"cognome" : "Verdi",
+						"indirizzo" : "Via Roma 1",
+						"cap" : "10100",
+						"numero_scarpe" : 41,
+						"giro_vita" : 75,
+						"altri_dati" : {
+							"telefono" : "333123456789",
+							"lingua" : "it"
+						}
+					};
+
+					document.getElementById("output_codice").innerHTML += JSON.stringify(persona) + "<br>";
+					for (let x in persona) {
+						document.getElementById("output_codice").innerHTML += x + ":" + (typeof persona[x]) + ":" + persona[x]+ "<br>";
+					}
+
+					// referenzio un ramo dell'oggetto e ne stampo il valore in 3 modi diversi
+					// cammino letterale in codice . separato
+					document.getElementById("output_codice").innerHTML += persona.altri_dati.telefono + "<br>";
+					// cammino usando una rappresentaizone stringa delle proprietà
+					document.getElementById("output_codice").innerHTML += persona["altri_dati"]["telefono"] + "<br>";
+					// come preceente ma i nomi dei rami sono dati da delle variabili
+					let lev1="altri_dati", lev2="telefono";
+					document.getElementById("output_codice").innerHTML += persona[lev1][lev2] + "<br>";
 
 				}
 			);
