@@ -8,6 +8,10 @@
 		<p>Se usi chrome apri la finestra developer tools (..., altri strumenti, strumenti per sviluppatori).</p>
 		<p>Per vedere i console.log inseriti in javascript di esempio (mostrare il tab console).</p>
 
+		<button id="miobottone1" onclick="alert('miobottone1 cliccato');">CLICCAMI onclick su DOM (deprecato)</button>
+		<button id="miobottone2">CLICCAMI addEventListener in linea (può andar bene)</button>
+		<button id="miobottone3">CLICCAMI addEventListener per referenza (meglio)</button>
+
 		<script>
 
 			"use strict";
@@ -15,6 +19,10 @@
 			function pippo(e){
 				console.log(e);
 				return "ciao";
+			}
+
+			function bottone3_click(e){
+				alert("miobottone3 cliccato");
 			}
 
 			let obj1 = {
@@ -45,9 +53,29 @@
 			window.addEventListener(
 				'DOMContentLoaded', 
 				function(event){
-					console.log(event);
+					
+					// gestiamo il click in tre modi
+					// il primo modo è nel dom ed è deprecato
+
+					// secondo modo, aggiungo una referenza di funzione alla proprietà onclick
+					// non è bellissimo perchè
+					// così facendo posso avere solo un gestore assegnato direttamente al metodo onclick
+					// inoltre è inline quindi non ne conosco la referenza
+					// inoltre è più difficilmente sganciabile
+					document.getElementById('miobottone2').onclick = function(){
+						alert('miobottone2 cliccato');
+					};
+
+					// terzo modo usiamo il gestore eventi aggiungendo una funzione delegato all'evento
+					// usando il gestore aggiungo una funzione, ma potrei aggiungerne anche altre
+					// inoltre avendo la referenza della funzione delegata posso anche rimuovere in futuro con
+					// removeEventListener
+					document.getElementById('miobottone3').addEventListener("click", bottone3_click);
+
 				}
 			);
+
+
 
 
 		</script>
