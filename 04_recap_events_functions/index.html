@@ -1,0 +1,60 @@
+<html>
+	<head>
+		<title>lezione 05 - recap</title>
+		<link rel="stylesheet" href="./../css/style.css">
+	</head>
+	<body>
+		<h1 id="titolo_principale">lezione 05 recap prima di esercitazioni</h1>
+		<p>Se usi chrome apri la finestra developer tools (..., altri strumenti, strumenti per sviluppatori).</p>
+		<p>Per vedere i console.log inseriti in javascript di esempio (mostrare il tab console).</p>
+
+		<script>
+
+			"use strict";
+
+			function pippo(e){
+				console.log(e);
+				return "ciao";
+			}
+
+			let obj1 = {
+				a : 12,
+				f : pippo
+			};
+
+			let obj2 = {
+				num : 33,
+				altrafun : pippo
+			};
+
+			// eventi di window
+			// https://developer.mozilla.org/en-US/docs/Web/API/Window
+
+			// posso aggiungere tanti listener quanti ne voglio
+
+			window.addEventListener('evento1', pippo);						// questa è anche rimovibile con removeEventListener
+
+			// come si rimuove?
+			window.removeEventListener('evento1', pippo);
+
+			// ci si può anche registrare inline a un evento ma poi non potrò chiedere la rimozione perchè non saprò la referenza della function
+			window.addEventListener('evento2', function(e){});		// queste inline no..
+			window.addEventListener('evento3', function(e){});
+			window.addEventListener('evento4', function(e){});
+
+			window.addEventListener(
+				'DOMContentLoaded', 
+				function(event){
+					console.log(event);
+				}
+			);
+
+
+		</script>
+
+		<h2 id="titolo_2">Output del programma</h2>
+		<div id="output_codice"></div>
+	
+	</body>
+
+</html>
