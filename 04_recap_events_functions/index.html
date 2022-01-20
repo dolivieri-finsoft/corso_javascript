@@ -10,6 +10,7 @@
 
 		<button id="miobottone1" onclick="alert('miobottone1 cliccato');">CLICCAMI onclick su DOM (deprecato)</button>
 		<button id="miobottone2">CLICCAMI addEventListener in linea (può andar bene)</button>
+		
 		<button id="miobottone3">CLICCAMI addEventListener per referenza (meglio)</button>
 
 		<script>
@@ -65,6 +66,7 @@
 					document.getElementById('miobottone2').onclick = function(){
 						alert('miobottone2 cliccato');
 					};
+
 
 					// terzo modo usiamo il gestore eventi aggiungendo una funzione delegato all'evento
 					// usando il gestore aggiungo una funzione, ma potrei aggiungerne anche altre
