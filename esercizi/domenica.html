@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <title>Eventi</title>
+        <link rel="stylesheet" href="eventi.css">
+    </head>
+    <body>
+        <h1 id="titolo_principale"> Short su array</h1>
+        <div id="contenitore" class="miobox">
+            <button id="bottone" class="miobottone">Cliccami!</button>
+            <button id = "bottone2" class = "miobottone multibottone" data-colore = "red">rosso</button>
+            <button id = "bottone3" class = "miobottone multibottone" data-colore = "green">verde</button>
+            <button id = "bottone4" class = "miobottone multibottone" data-colore = "blue">blu</button>
+            <button id = "reset_colore" class = "miobottone multibottone" data-colore = "">reset colore</button>
+            <p id= "idpar" class="altrobox">prova a cliccare qui</p>
+            
+            
+
+        </div>
+        <div id="pannello_bottoni" class = "box2">
+            <button id = "ingrandisci" class = "bottone_zoom" data-incremento = "+20">Ingrandisci</button>
+            <button id = "riduci" class = "bottone_zoom" data-incremento = "-20">Riduci</button>
+        </div>
+           
+      <div id = "contenitore_immagine">
+        <img id = "foto" src="https://unsplash.it/600/600" width="600" height="600">
+        <img id = "foto2" src="https://unsplash.it/600/600" style="width:600px; height:600px">
+      </div>
+        
+        <script>
+           
+           "use strict";
+           /* aggiungiamo 2 bottoni ingrandisci e riduci poi aggiungere un tag <img> con dentro un'immagine che abbia
+			   2 attributi width e height, premendo il tasto ingrandisci o riduci l'incremento o decremento è espresso da un data attribute.
+			*/
+            function zoom_immagine (event){
+                event.stopPropagation();
+                let element = event.currentTarget;
+                let incremento = element.getAttribute("data-incremento");
+                let foto = document.getElementById("foto");
+                let w = foto.getAttribute("width");
+                let h = foto.getAttribute("height");
+                let nuova_w = parseInt(w) + parseInt(incremento);
+                let nuova_h = parseInt(h) + parseInt(incremento);
+                //alert (nuova_w);
+                foto.setAttribute("width", nuova_w);
+                foto.setAttribute("height", nuova_h);
+
+            }
+
+
+           function multi_bottone_click (event) {
+				let id=event.currentTarget.id;
+				let element = event.currentTarget;
+				let classe_colore = element.getAttribute("data-colore");
+				alert("multi bottone cliccato! id="+classe_colore);	
+				let p = document.getElementById("idpar");
+				//p.classList.add(classe_colore); // aggiunge solo ma non toglie quindi non è la soluzione migliore
+				//p.className = "altrobox "+classe_colore; // funziona
+				p.setAttribute ("class", "altrobox "+classe_colore); 
+
+           }
+           function bottone_click (event){
+               alert("bottone cliccato");
+
+           }
+           function altro_click (event) {
+				alert("altro cliccato");
+			}
+            window.addEventListener(
+                'DOMContentLoaded',
+                function(event){
+                    console.log("il dom è stato caricato");
+                    //per aggiungere un evento al bottone
+                    //devo prima crearmi una referenza al bottone
+                    //e poi aggiungere un listener all'evento stesso.
+                    let c = document.getElementById("contenitore");
+                    c.addEventListener("click",altro_click);
+                    let b = document.getElementById("bottone");
+                    b.addEventListener("click", bottone_click);
+                    let m=document.querySelectorAll(".multibottone");
+                    m.forEach(function(v, k, p){
+                        v.addEventListener("click", multi_bottone_click);
+                        //creare 2 nuove classi in css una red e una green che mettono il blackgroun color dei rispettivi colori.
+                        //quando premo il tasto bottone2 e bottone3 cambia il colore del paragraf (diamogli un id) con la rispettiva classe
+                    })
+    
+                    let z = document.querySelectorAll(".bottone_zoom");
+                    z.forEach(function(v, k, p){
+                        v.addEventListener("click", zoom_immagine);
+                        
+                    })
+
+
+
+//qualunque elemento ha una dimensione che si esprime con widht e height. come modificare width e height di foglio2
+
+                }
+            );
+                </script>
+    </body>
+</html>
