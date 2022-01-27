@@ -1,97 +1,96 @@
 
 <html>     <!-- Questo è un commento html -->
 <head>
-	<title>boilerplate</title>
+	<title>esercizio json array e dom</title>
 	<link rel="stylesheet" href="./../css/style.css">
 </head>
 <body>
-	<h1 id="titolo_principale">boilerplate</h1>
+	<h1 id="titolo_principale">esercizio json array e dom</h1>
 	<p>Se usi chrome apri la finestra developer tools (..., altri strumenti, strumenti per sviluppatori).</p>
 	<p>Per vedere i console.log inseriti in javascript di esempio (mostrare il tab console).</p>
 
-			<label for="story">JSON:</label>
+	<label for="textarea_da_analizzare">JSON:</label>
+	<textarea id="textarea_da_analizzare" name="textarea_da_analizzare" rows="5" placeholder="Inserisci qui l'array JSON" cols="33"></textarea>
 
-			<textarea id="story" name="story" rows="5" placeholder="Inserisci qui l'array JSON" cols="33" ></textarea>
+	<button id="bottone_analizza">ANALIZZA</button>
+	<button id="bottone_pulisci">PULISCI</button>
 
-			<button id  = "analizza"> ANALIZZA </button>
-			<button id  = "pulisci"> PULISCI </button>
-
-			<div id = "lista"></div>
-
-
+	<div id="lista_paragrafi"></div>
 
 	<script>
 
 		"use strict";
-					// Questo è il commento di una linea.
 
-					/* Esercizio:
-					1. DONE Creare un textarea e dargli un ID
-					2. DONE Aggiungere un bottone che chiamiamo "ANALIZZA"
-					3. DONE Alla pressione di analizza leggere il contenuto della textarea
-					4.1 DONE Se il contenuto della textarea è un array scritto in Json aggiungere nel Dom (in Div)
-					tanti paragrafi contenenti le diverse stringhe nell'array.
-					Esempio: ["Pippo","Pluto","Paperino"]
-					4.2 DONE ATTENZIONE: Se la parse va male la dobbiamo trattare con un (try-catch)
-					4.3 DONE Testare quello che abbiamo scritto sia un array
-					5. DONE Aggiungere anche un bottone "PULISCI" che svuota la textarea e butta via tutti i 
-					paragrafi precedentemente creati. 
-					/* Questo è
-					commento di 
-					blocco*/
+		// Questo è il commento di una linea.
+
+		/* Esercizio:
+		1. DONE Creare un textarea e dargli un ID
+		2. DONE Aggiungere un bottone che chiamiamo "ANALIZZA"
+		3. DONE Alla pressione di analizza leggere il contenuto della textarea
+		4.1 DONE Se il contenuto della textarea è un array scritto in Json aggiungere nel Dom (in Div)
+		tanti paragrafi contenenti le diverse stringhe nell'array.
+		Esempio: ["Pippo","Pluto","Paperino"]
+		4.2 DONE ATTENZIONE: Se la parse va male la dobbiamo trattare con un (try-catch)
+		4.3 DONE Testare quello che abbiamo scritto sia un array
+		5. DONE Aggiungere anche un bottone "PULISCI" che svuota la textarea e butta via tutti i 
+		paragrafi precedentemente creati. 
+		/* Questo è
+		commento di 
+		blocco*/
 					
 					
-					function click_analizza (event) {
+		function click_analizza (event) {
 			event.stopPropagation();
+		
+			//alert("click_analizza");
+			let textareavalue = document.getElementById("textarea_da_analizzare").value;
+			try{
 			
-							//alert("click_analizza");
-							let textareavalue = document.getElementById("story").value;
-							try{
-							
-									let mioJson = JSON.parse (textareavalue);
-									if (Array.isArray(mioJson)) {
-											
-											//alert ("E' un array");
-											mioJson.forEach(function(v, k, p){
-													const node = document.createElement("p");
+				let mioJson = JSON.parse(textareavalue);
+				if (Array.isArray(mioJson)) {
+						
+					//alert ("E' un array");
+					mioJson.forEach(function(v, k, p){
+						const paragraph_node = document.createElement("p");
 
-													// Create a text node:
-													const textnode = document.createTextNode(v);
+						// Create a text node:
+						const text_node = document.createTextNode(v);
 
-													// Append the text node to the "p" node:
-													node.appendChild(textnode);
+						// Append the text node to the "p" node:
+						paragraph_node.appendChild(text_node);
 
-													// Append the "p" node to the div id = "lista":
-													document.getElementById("lista").appendChild(node);
+						// Append the "p" node to the div id = "lista":
+						document.getElementById("lista_paragrafi").appendChild(paragraph_node);
+					});
 
-											})
+				} else {
+					alert ("Non è un array");
+				}
+			} catch (errore) {
+				alert (errore);
+			}
+		}
 
-									} else {
-											alert ("Non è un array");
-									}
-							} catch (errore) {
-									alert (errore);
-							}
-					}
-					function click_pulisci (event) {
-							//alert ("click_pulisci");
-							event.stopPropagation();
+		function click_pulisci (event) {
+			//alert ("click_pulisci");
+			event.stopPropagation();
 
-							// Devo pulire la textarea
-							document.getElementById("story").value = ""; 
+			// Devo pulire la textarea
+			document.getElementById("textarea_da_analizzare").value = ""; 
 
-							// Buttare via tutti i paragrafi precedentemente creati
-							document.getElementById("lista").innerHTML = "";
+			// Buttare via tutti i paragrafi precedentemente creati
+			document.getElementById("lista_paragrafi").innerHTML = "";
+		} 
 
-					} 
-
+		// questa è la function di callback chiamata allo startup post caricamento del DOM
 		window.addEventListener(
 			'DOMContentLoaded', 
 			function(event){
-				let bottone_analizza = document.getElementById("analizza");
+
+				let bottone_analizza = document.getElementById("bottone_analizza");
 				bottone_analizza.addEventListener("click",click_analizza);
 
-				let bottone_pulisci = document.getElementById("pulisci");
+				let bottone_pulisci = document.getElementById("bottone_pulisci");
 				bottone_pulisci.addEventListener("click",click_pulisci);
 
 			}
@@ -99,9 +98,6 @@
 
 
 	</script>
-
-	<h2 id="titolo_2">Output del programma</h2>
-	<div id="output_codice"></div>
 
 </body>
 
