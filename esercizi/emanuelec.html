@@ -6,6 +6,7 @@
 </head>
 <body>
 	<h1 id="titolo_principale">esercizio json array e dom</h1>
+	<hr>
 	<p>Se usi chrome apri la finestra developer tools (..., altri strumenti, strumenti per sviluppatori).</p>
 	<p>Per vedere i console.log inseriti in javascript di esempio (mostrare il tab console).</p>
 
@@ -51,6 +52,8 @@
 						
 					//alert ("E' un array");
 					mioJson.forEach(function(v, k, p){
+
+						// per creare un qualsiasi tag html5 devo usare la createElement
 						const paragraph_node = document.createElement("p");
 
 						// Create a text node:
