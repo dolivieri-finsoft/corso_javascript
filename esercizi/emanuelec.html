@@ -34,7 +34,7 @@
 					Esempio: ["Pippo","Pluto","Paperino"]
 					4.2 DONE ATTENZIONE: Se la parse va male la dobbiamo trattare con un (try-catch)
 					4.3 DONE Testare quello che abbiamo scritto sia un array
-					5.Aggiungere anche un bottone "PULISCI" che svuota la textarea e butta via tutti i 
+					5. DONE Aggiungere anche un bottone "PULISCI" che svuota la textarea e butta via tutti i 
 					paragrafi precedentemente creati. 
 					/* Questo è
 					commento di 
@@ -76,11 +76,11 @@
 					function click_pulisci (event) {
 							//alert ("click_pulisci");
 							event.stopPropagation();
-							
+
 							// Devo pulire la textarea
 							document.getElementById("story").value = ""; 
 
-							// TODO Buttare via tutti i paragrafi precedentemente creati
+							// Buttare via tutti i paragrafi precedentemente creati
 							document.getElementById("lista").innerHTML = "";
 
 					} 
