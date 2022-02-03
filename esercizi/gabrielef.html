@@ -20,9 +20,15 @@
 			3. DONE mostrare il contenuto in formato stringa in un div
 			4. DONE gestire gli errori (file not found, etc..) 
 			5. DONE gestire il 404 (file not found) in modo da non far stampare nel div il messaggio di errore ma interrompendo la catena e semplicemente svuotando il div
+			
+			EVOLUTIVA
+			1. DONE leggere JSON da URL
+			2. DONE interpretare il file di risposta come JSON
+			3. DONE creare un div template che impagina nome, cognome e lista non ordinata frutta
+			4. DONE alla pressione di LEGGI iniettare di div output_richiesta il JSOn impaginato secondo template punto 3
 			*/
 
-			function click_leggi (event) {
+			function click_leggi(event){
 				//alert ("click_leggi");
 				event.stopPropagation();
 
@@ -44,10 +50,16 @@
 						} else {
 							// go the desired response
 							// When the page is loaded convert it to text
-							return response.text();
+							return response.json();
 						}
 				})
-				.then(function(html) {
+				.then(function(json) {
+						let html = document.getElementById("template").innerHTML;
+						let lista_frutti = json.frutti.map(x => "<li>"+x+"</li>").join("");
+						html = html.replaceAll("{{nome}}", json.persona.nome)
+									.replaceAll("{{cognome}}", json.persona.cognome)
+									.replaceAll("{{lista_frutti}}", lista_frutti);
+						console.log(json);
 						// posso iniettare html in pagina
 						document.getElementById("output_richiesta").innerHTML = html;
 					
@@ -77,6 +89,13 @@
 
 		<h2 id="titolo_2">Output del richiesta url</h2>
 		<div id="output_richiesta"></div>
+
+		<hr>
+		<div id="template">
+			<p>nome: {{nome}}</p>
+			<p>nome: {{cognome}}</p>
+			<ul>{{lista_frutti}}</ul> 
+		</div>
 	
 	</body>
 
