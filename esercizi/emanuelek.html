@@ -15,21 +15,55 @@
 			// Questo è il commento di una linea.
 
 			/* Esercizio:
-			1. TODO creare un campo text per input di una url
-			2. TODO creare un bottone leggi che invoca funzione che interroga url e ne legge contenuto
-			3. TODO mostrare il contenuto in formato stringa in un div
-			4. TODO gestire gli errori (file not found, etc..) 
+			1. DONE creare un campo text per input di una url
+			2. DONE creare un bottone leggi che invoca funzione che interroga url e ne legge contenuto
+			3. DONE mostrare il contenuto in formato stringa in un div
+			4. DONE gestire gli errori (file not found, etc..) 
 			*/
+
+			function click_leggi (event) {
+				//alert ("click_leggi");
+				event.stopPropagation();
+
+				// prendo la url dall'input text input_url
+				let url = document.getElementById("input_url").value; 
+
+				fetch(url)
+				.then(function(response) {
+
+						// lo status http viene fornito
+						alert("STATUS HTTP: "+response.status);
+						console.log("STATUS HTTP: ",response.status);
+
+						// When the page is loaded convert it to text
+						return response.text()
+				})
+				.then(function(html) {
+						// posso iniettare html in pagina
+						document.getElementById("output_richiesta").innerHTML = html;
+					
+				})
+				.catch(function(err) { 
+						alert(err);
+						console.log('Failed to fetch page: ', err);  
+				});
+			}
 
 			window.addEventListener(
 				'DOMContentLoaded', 
 				function(event){
+
+					let bottone_leggi = document.getElementById("bottone_leggi");
+					bottone_leggi.addEventListener("click",click_leggi);
 
 				}
 			);
 
 
 		</script>
+
+		<input type="text" id="input_url">
+		<button id="bottone_leggi">LEGGI</button>
 
 		<h2 id="titolo_2">Output del richiesta url</h2>
 		<div id="output_richiesta"></div>
