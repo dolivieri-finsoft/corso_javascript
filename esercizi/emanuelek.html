@@ -19,6 +19,7 @@
 			2. DONE creare un bottone leggi che invoca funzione che interroga url e ne legge contenuto
 			3. DONE mostrare il contenuto in formato stringa in un div
 			4. DONE gestire gli errori (file not found, etc..) 
+			5. TODO gestire il 404 (file not found) in modo da non far stampare nel div il messaggio di errore ma interrompendo la catena e semplicemente svuotando il div
 			*/
 
 			function click_leggi (event) {
@@ -32,11 +33,19 @@
 				.then(function(response) {
 
 						// lo status http viene fornito
-						alert("STATUS HTTP: "+response.status);
-						console.log("STATUS HTTP: ",response.status);
+						//alert("STATUS HTTP: "+response.status);
+						//console.log("STATUS HTTP: ",response.status);
 
-						// When the page is loaded convert it to text
-						return response.text()
+						if (!response.ok) {
+							// make the promise be rejected if we didn't get a 2xx response
+							const err = new Error("Not 2xx response");
+							err.response = response;
+							throw err;
+						} else {
+							// go the desired response
+							// When the page is loaded convert it to text
+							return response.text();
+						}
 				})
 				.then(function(html) {
 						// posso iniettare html in pagina
@@ -45,7 +54,8 @@
 				})
 				.catch(function(err) { 
 						alert(err);
-						console.log('Failed to fetch page: ', err);  
+						console.log('Failed to fetch page: ', err);
+						document.getElementById("output_richiesta").innerHTML = ''; 
 				});
 			}
 
@@ -62,7 +72,7 @@
 
 		</script>
 
-		<input type="text" id="input_url">
+		<input type="text" id="input_url" value="https://raw.githubusercontent.com/dolivieri-finsoft/corso_javascript/main/esercizi/assets/fragment.html">
 		<button id="bottone_leggi">LEGGI</button>
 
 		<h2 id="titolo_2">Output del richiesta url</h2>
