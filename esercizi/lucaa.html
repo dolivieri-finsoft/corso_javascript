@@ -15,7 +15,7 @@
 			// Questo è il commento di una linea.
 
 			/* Esercizio:
-			1. TODO creare un campo text per input di una url
+			1. DONE creare un campo text per input di una url
 			2. TODO creare un bottone leggi che invoca funzione che interroga url e ne legge contenuto MA con XMLhttprequest
 			3. TODO mostrare il contenuto in formato stringa in un div
 			4. TODO gestire gli errori (file not found, etc..) 
@@ -23,11 +23,44 @@
 
 			*/
 
+			function responseLoadListener(){
+				console.log(this.responseText);
+				document.getElementById("output_richiesta").innerHTML = this.responseText;
+			}
+
+			function responseLoadEndListener(){
+				console.log("responseLoadEndListener: "+this.status);
+				if(this.status == 404){
+					alert("error: 404");
+				}
+			}
+
+			function responseErrorListener(){
+				console.log(this);
+				alert("error generico: "+this.status);
+			}
+
+			function click_leggi(event){
+				//alert ("click_leggi");
+				event.stopPropagation();
+
+				// prendo la url dall'input text input_url
+				let url = document.getElementById("input_url").value;
+				
+				var oReq = new XMLHttpRequest();
+				oReq.addEventListener("load", responseLoadListener);
+				oReq.addEventListener("loadend", responseLoadEndListener);
+				oReq.addEventListener("error", responseErrorListener);
+				oReq.open("GET", url);
+				oReq.send();
+			}
 
 			window.addEventListener(
 				'DOMContentLoaded', 
 				function(event){
 
+					let bottone_leggi = document.getElementById("bottone_leggi");
+					bottone_leggi.addEventListener("click",click_leggi);
 
 				}
 			);
