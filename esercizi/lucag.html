@@ -1,0 +1,106 @@
+<html>
+	<head>
+		<title>chiamata url 2</title>
+		<link rel="stylesheet" href="./../css/style.css">
+	</head>
+	<body>
+		<h1 id="titolo_principale">chiamata url 2</h1>
+		<p>Se usi chrome apri la finestra developer tools (..., altri strumenti, strumenti per sviluppatori).</p>
+		<p>Per vedere i console.log inseriti in javascript di esempio (mostrare il tab console).</p>
+
+		<script>
+
+			"use strict";
+
+			// Questo è il commento di una linea.
+
+			/* Esercizio:
+			1. DONE creare un campo text per input di una url
+			2. DONE creare un bottone leggi che invoca funzione che interroga url e ne legge contenuto MA con XMLhttprequest
+			3. DONE mostrare il contenuto in formato stringa in un div
+			4. DONE gestire gli errori (file not found, etc..) 
+			5. DONE gestire il 404 (file not found) in modo da non far stampare nel div il messaggio di errore ma interrompendo la catena e semplicemente svuotando il div
+
+			EVOLUTIVA 
+			1.DONE testare il codice con un file di testo grande;
+			2.
+
+			*/
+
+			function responseLoadListener(){
+				console.log("responseLoadListener: " + this.status);
+				if(this.status == 404){
+					alert("error: 404");
+				}
+			}
+			
+			function responseLoadEndListener(){
+				console.log("responseLoadEndListener: " + this.status);
+				document.getElementById("output_richiesta").innerHTML = this.responseText;
+			}
+
+			function responseErrorListener(){
+				console.log(this);
+				alert("error generico: " + this.status);
+			}
+
+			function click_leggi(event){
+				//alert ("click_leggi");
+				event.stopPropagation();
+
+				// prendo la url dall'input text input_url
+				let url = document.getElementById("input_url").value;
+				
+				var oReq = new XMLHttpRequest();
+				oReq.addEventListener("load", responseLoadListener);
+				oReq.addEventListener("loadend", responseLoadEndListener);
+				oReq.addEventListener("error", responseErrorListener);
+				oReq.open("GET", url);
+				oReq.send();
+			}
+
+			function logSubmit(event) {
+				let input = document.getElementById("fake_param").value;
+				if(input!=1)  {
+					//il form non è valido msg di errore --> stop
+					alert("Error: Devi inserire 1");
+				}else {
+					//il form è valido (perchè è 1)
+
+					//TODO richiedere i dati della action del form in GET con appesi i parametri dentro il form
+					
+				}
+				event.preventDefault();
+			}
+
+			window.addEventListener(
+				'DOMContentLoaded', 
+				function(event){
+
+					let bottone_leggi = document.getElementById("bottone_leggi");
+					bottone_leggi.addEventListener("click",click_leggi);
+					let form = document.getElementById('form_7');
+					form.addEventListener('submit', logSubmit);
+				}
+			);
+
+
+		</script>
+
+		<input type="text" id="input_url" value="https://raw.githubusercontent.com/dolivieri-finsoft/corso_javascript/main/esercizi/assets/lorem.txt">
+		<button id="bottone_leggi">LEGGI</button>
+
+		<h2 id="titolo_2">Output del richiesta url</h2>
+		<div id="output_richiesta"></div>
+
+		<form id="form_7" action="https://raw.githubusercontent.com/dolivieri-finsoft/corso_javascript/main/esercizi/assets/dati.json" method="GET">
+
+			<input type="text" id="fake_param" name="fake_param" value="pippo">
+
+			<button type="submit" id="bottone_invia">INVIA</button>
+
+		</form>
+
+	</body>
+
+</html>
