@@ -24,15 +24,15 @@
 			*/
 
 			function responseLoadListener(){
-				console.log(this.responseText);
-				document.getElementById("output_richiesta").innerHTML = this.responseText;
+				if(this.status == 404){
+					alert("error: 404");
+				}				
+				console.log("responseLoadEndListener: "+this.status);
 			}
 
 			function responseLoadEndListener(){
 				console.log("responseLoadEndListener: "+this.status);
-				if(this.status == 404){
-					alert("error: 404");
-				}
+				document.getElementById("output_richiesta").innerHTML = this.responseText;
 			}
 
 			function responseErrorListener(){
