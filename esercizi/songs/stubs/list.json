@@ -1,6 +1,6 @@
 {
 	"result":0,
-	"message":"song successfully modified",
+	"message":"songs list successfully retrieved",
 	"data":[
 		{
 			"id":"1",
