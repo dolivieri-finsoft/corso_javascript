@@ -33,7 +33,7 @@
 					<div class="collapse navbar-collapse" id="navbarCollapse">
 						<ul class="navbar-nav me-auto mb-2 mb-md-0">
 							<li class="nav-item">
-								<a class="nav-link active" aria-current="page" href="#">Add Song</a>
+								<a class="nav-link active write-song" aria-current="page" href="#" data-song-id="">Add Song</a>
 							</li>
 						</ul>
 					</div>
@@ -63,12 +63,44 @@
 							<td>Tornerai</td>
 							<td>Raspelli</td>
 							<td>Olivieri</td>
-							<td><button type="button" class="btn btn-sm btn-primary">edit</button> <button type="button" class="btn btn-sm btn-danger">delete</button></td>
+							<td>
+								<button type="button" class="btn btn-sm btn-primary write-song" data-song-id="1">edit</button> 
+								<button type="button" class="btn btn-sm btn-danger">delete</button>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">2</th>
+							<td>Blabla</td>
+							<td>Rossi</td>
+							<td>Verdi</td>
+							<td>
+								<button type="button" class="btn btn-sm btn-primary write-song" data-song-id="2">edit</button>
+								<button type="button" class="btn btn-sm btn-danger">delete</button>
+							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</main>
+
+		<!-- Modal -->
+		<div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Edit Song</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+					
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		
 		<footer class="footer mt-auto py-3 bg-light">
 			<div class="container">

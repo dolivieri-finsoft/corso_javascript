@@ -13,10 +13,25 @@ PREREQUISITI: la app deve essere responsive e single page
 7. TODO implementare la Edit Song (anche se solo simulata con fake response)
 8. TODO implementare la Delete Song (anche se solo simulata con fake response)
 */
+let songModal = null;
+
+function writeSong(event){
+	let originator = event.currentTarget;
+	let song_id = originator.getAttribute('data-song-id');
+	console.log("id="+song_id);
+	songModal.show();
+}
 
 window.addEventListener(
 	'DOMContentLoaded', 
 	function(event){
 
+		songModal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
+
+		let bottoniSong = document.getElementsByClassName("write-song");
+		for(let li=0; li<bottoniSong.length; li++){
+			//console.log(bottoniSong[li]);
+			bottoniSong[li].addEventListener("click", writeSong);
+		}
 	}
 );
