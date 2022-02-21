@@ -1,20 +1,24 @@
-[
-	{
-		"id":"1",
-		"title":"Tornerai",
-		"author":"Raspelli",
-		"composer":"Olivieri"
-	},
-	{
-		"id":"2",
-		"title":"Aqualong",
-		"author":"Jethrotull",
-		"composer":"Ian Anderson"
-	},
-	{
-		"id":"3",
-		"title":"Beautiness",
-		"author":"Olivieri",
-		"composer":"Olivieri"
-	}
-]
+{
+	"result":0,
+	"message":"song successfully modified",
+	"data":[
+		{
+			"id":"1",
+			"title":"Tornerai",
+			"author":"Raspelli",
+			"composer":"Olivieri"
+		},
+		{
+			"id":"2",
+			"title":"Aqualong",
+			"author":"Jethrotull",
+			"composer":"Ian Anderson"
+		},
+		{
+			"id":"3",
+			"title":"Beautiness",
+			"author":"Olivieri",
+			"composer":"Olivieri"
+		}
+	]
+}

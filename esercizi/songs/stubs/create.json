@@ -1,4 +1,5 @@
 {
 	"result":0,
-	"message":"song successfully created"
+	"message":"song successfully created",
+	"data":{}
 }
