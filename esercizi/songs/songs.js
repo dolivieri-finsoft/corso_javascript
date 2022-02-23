@@ -28,8 +28,31 @@ function writeSong(event){
 function deleteSong(event){
 	let originator = event.currentTarget;
 	let song_id = originator.getAttribute('data-song-id');
+	let song_title = originator.getAttribute('data-song-title');
 	console.log("delete id="+song_id);
 
+	if(confirm("Sei sicuro di voler cancellare la canzone: "+song_id+" - "+song_title+"?")){
+		fetch(base_url+"delete.json?id="+song_id)
+		.then(function(response) {
+			return response.json();
+		})
+		.then(function(json) {
+				
+				console.log(json);
+
+				if(json.result !== 0){
+					alert("Error "+json.result+" in deleteSong: "+json.message);
+				} else {
+					alert("cancellazione della canzone "+song_title+" avvenuta con successo.");
+				}
+				refreshSongs();
+				
+		})
+		.catch(function(err) { 
+				alert(err);
+				console.log('Failed to fetch page: ', err);
+		});
+	}
 }
 
 function refreshSongs(event){
@@ -37,33 +60,46 @@ function refreshSongs(event){
 	// rileggo la lista delle canzoni dal back-end e ridisegno la tabella
 
 	fetch(base_url+"list.json")
-				.then(function(response) {
-					return response.json();
-				})
-				.then(function(json) {
-						
-						console.log(json);
+	.then(function(response) {
+		return response.json();
+	})
+	.then(function(json) {
+			
+		console.log(json);
 
-						// TODO posso ridisegnare la tabella
-						let rows = "";
+		// TODO posso ridisegnare la tabella
+		let rows = "";
 
-						if(json.result !== 0){
-							alert("Error "+json.result+" in refreshSongs: "+json.message);
-						} else {
-							for(let li=0; li<json.data.length; li++){
-								let row = template_riga_song;
-								rows += row.replaceAll("{{id}}", json.data[li].id)
-									.replaceAll("{{title}}", json.data[li].title)
-									.replaceAll("{{author}}", json.data[li].author)
-									.replaceAll("{{composer}}", json.data[li].composer);
-							}
-						}
-						document.getElementById("table_songs_body").innerHTML = rows;
-				})
-				.catch(function(err) { 
-						alert(err);
-						console.log('Failed to fetch page: ', err);
-				});	
+		if(json.result !== 0){
+			alert("Error "+json.result+" in refreshSongs: "+json.message);
+		} else {
+			for(let li=0; li<json.data.length; li++){
+				let row = template_riga_song;
+				rows += row.replaceAll("{{id}}", json.data[li].id)
+					.replaceAll("{{title}}", json.data[li].title)
+					.replaceAll("{{author}}", json.data[li].author)
+					.replaceAll("{{composer}}", json.data[li].composer);
+			}
+		}
+		document.getElementById("table_songs_body").innerHTML = rows;
+		agganciaEventiEditDelete();
+	})
+	.catch(function(err) { 
+			alert(err);
+			console.log('Failed to fetch page: ', err);
+	});	
+}
+
+function agganciaEventiEditDelete(){
+	let bottoniEditSong = document.getElementsByClassName("edit-song");
+	for(let li=0; li<bottoniEditSong.length; li++){
+		bottoniEditSong[li].addEventListener("click", writeSong);
+	}
+
+	let bottoniDeleteSong = document.getElementsByClassName("delete-song");
+	for(let li=0; li<bottoniDeleteSong.length; li++){
+		bottoniDeleteSong[li].addEventListener("click", deleteSong);
+	}
 }
 
 window.addEventListener(
@@ -75,16 +111,6 @@ window.addEventListener(
 		let bottoniAddSong = document.getElementsByClassName("add-song");
 		for(let li=0; li<bottoniAddSong.length; li++){
 			bottoniAddSong[li].addEventListener("click", writeSong);
-		}
-
-		let bottoniEditSong = document.getElementsByClassName("edit-song");
-		for(let li=0; li<bottoniEditSong.length; li++){
-			bottoniEditSong[li].addEventListener("click", writeSong);
-		}
-
-		let bottoniDeleteSong = document.getElementsByClassName("delete-song");
-		for(let li=0; li<bottoniDeleteSong.length; li++){
-			bottoniDeleteSong[li].addEventListener("click", deleteSong);
 		}
 
 		let bottoniRefreshSongs = document.getElementsByClassName("refresh-songs");
