@@ -15,8 +15,8 @@ PREREQUISITI: la app deve essere responsive e single page
 */
 const base_url = "./stubs/";
 
-const template_riga_song = "";
-const songModal = null;
+let template_riga_song = "";
+let songModal = null;
 
 function writeSong(event){
 	let originator = event.currentTarget;
