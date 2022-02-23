@@ -15,13 +15,21 @@ PREREQUISITI: la app deve essere responsive e single page
 */
 const base_url = "./stubs/";
 
-let songModal = null;
+const template_riga_song = "";
+const songModal = null;
 
 function writeSong(event){
 	let originator = event.currentTarget;
 	let song_id = originator.getAttribute('data-song-id');
-	console.log("id="+song_id);
+	console.log("write id="+song_id);
 	songModal.show();
+}
+
+function deleteSong(event){
+	let originator = event.currentTarget;
+	let song_id = originator.getAttribute('data-song-id');
+	console.log("delete id="+song_id);
+
 }
 
 function refreshSongs(event){
@@ -35,9 +43,22 @@ function refreshSongs(event){
 				.then(function(json) {
 						
 						console.log(json);
+
 						// TODO posso ridisegnare la tabella
-	
-					
+						let rows = "";
+
+						if(json.result !== 0){
+							alert("Error "+json.result+" in refreshSongs: "+json.message);
+						} else {
+							for(let li=0; li<json.data.length; li++){
+								let row = template_riga_song;
+								rows += row.replaceAll("{{id}}", json.data[li].id)
+									.replaceAll("{{title}}", json.data[li].title)
+									.replaceAll("{{author}}", json.data[li].author)
+									.replaceAll("{{composer}}", json.data[li].composer);
+							}
+						}
+						document.getElementById("table_songs_body").innerHTML = rows;
 				})
 				.catch(function(err) { 
 						alert(err);
@@ -51,16 +72,21 @@ window.addEventListener(
 
 		songModal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
 
-		let bottoniSong = document.getElementsByClassName("write-song");
-		for(let li=0; li<bottoniSong.length; li++){
-			//console.log(bottoniSong[li]);
-			bottoniSong[li].addEventListener("click", writeSong);
+		let bottoniWriteSong = document.getElementsByClassName("write-song");
+		for(let li=0; li<bottoniWriteSong.length; li++){
+			bottoniWriteSong[li].addEventListener("click", writeSong);
 		}
 
-		let bottoniRefresh = document.getElementsByClassName("refresh-songs");
-		for(let li=0; li<bottoniRefresh.length; li++){
-			//console.log(bottoniSong[li]);
-			bottoniRefresh[li].addEventListener("click", refreshSongs);
+		let bottoniDeleteSong = document.getElementsByClassName("delete-song");
+		for(let li=0; li<bottoniDeleteSong.length; li++){
+			bottoniDeleteSong[li].addEventListener("click", deleteSong);
 		}
+
+		let bottoniRefreshSongs = document.getElementsByClassName("refresh-songs");
+		for(let li=0; li<bottoniRefreshSongs.length; li++){
+			bottoniRefreshSongs[li].addEventListener("click", refreshSongs);
+		}
+
+		template_riga_song = document.getElementById("table_songs_body").innerHTML;
 	}
 );

@@ -60,25 +60,15 @@
 							<th scope="col"></th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="table_songs_body">
 						<tr>
-							<th scope="row">1</th>
-							<td>Tornerai</td>
-							<td>Raspelli</td>
-							<td>Olivieri</td>
+							<th scope="row">{{id}}</th>
+							<td>{{title}}</td>
+							<td>{{author}}</td>
+							<td>{{composer}}</td>
 							<td>
-								<button type="button" class="btn btn-sm btn-primary write-song" data-song-id="1">edit</button> 
-								<button type="button" class="btn btn-sm btn-danger" data-song-id="1">delete</button>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>Blabla</td>
-							<td>Rossi</td>
-							<td>Verdi</td>
-							<td>
-								<button type="button" class="btn btn-sm btn-primary write-song" data-song-id="2">edit</button>
-								<button type="button" class="btn btn-sm btn-danger" data-song-id="2">delete</button>
+								<button type="button" class="btn btn-sm btn-primary write-song" data-song-id="{{id}}">edit</button> 
+								<button type="button" class="btn btn-sm btn-danger delete_song" data-song-id="{{id}}">delete</button>
 							</td>
 						</tr>
 					</tbody>
