@@ -88,5 +88,7 @@ window.addEventListener(
 		}
 
 		template_riga_song = document.getElementById("table_songs_body").innerHTML;
+
+		refreshSongs(null);
 	}
 );
