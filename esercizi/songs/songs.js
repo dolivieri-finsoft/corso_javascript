@@ -13,6 +13,8 @@ PREREQUISITI: la app deve essere responsive e single page
 7. TODO implementare la Edit Song (anche se solo simulata con fake response)
 8. TODO implementare la Delete Song (anche se solo simulata con fake response)
 */
+const base_url = "./stubs/";
+
 let songModal = null;
 
 function writeSong(event){
@@ -20,6 +22,27 @@ function writeSong(event){
 	let song_id = originator.getAttribute('data-song-id');
 	console.log("id="+song_id);
 	songModal.show();
+}
+
+function refreshSongs(event){
+
+	// rileggo la lista delle canzoni dal back-end e ridisegno la tabella
+
+	fetch(base_url+"list.json")
+				.then(function(response) {
+					return response.json();
+				})
+				.then(function(json) {
+						
+						console.log(json);
+						// TODO posso ridisegnare la tabella
+	
+					
+				})
+				.catch(function(err) { 
+						alert(err);
+						console.log('Failed to fetch page: ', err);
+				});	
 }
 
 window.addEventListener(
@@ -32,6 +55,12 @@ window.addEventListener(
 		for(let li=0; li<bottoniSong.length; li++){
 			//console.log(bottoniSong[li]);
 			bottoniSong[li].addEventListener("click", writeSong);
+		}
+
+		let bottoniRefresh = document.getElementsByClassName("refresh-songs");
+		for(let li=0; li<bottoniRefresh.length; li++){
+			//console.log(bottoniSong[li]);
+			bottoniRefresh[li].addEventListener("click", refreshSongs);
 		}
 	}
 );
