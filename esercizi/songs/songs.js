@@ -72,9 +72,14 @@ window.addEventListener(
 
 		songModal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
 
-		let bottoniWriteSong = document.getElementsByClassName("write-song");
-		for(let li=0; li<bottoniWriteSong.length; li++){
-			bottoniWriteSong[li].addEventListener("click", writeSong);
+		let bottoniAddSong = document.getElementsByClassName("add-song");
+		for(let li=0; li<bottoniAddSong.length; li++){
+			bottoniAddSong[li].addEventListener("click", writeSong);
+		}
+
+		let bottoniEditSong = document.getElementsByClassName("edit-song");
+		for(let li=0; li<bottoniEditSong.length; li++){
+			bottoniEditSong[li].addEventListener("click", writeSong);
 		}
 
 		let bottoniDeleteSong = document.getElementsByClassName("delete-song");
