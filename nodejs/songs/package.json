@@ -1,0 +1,17 @@
+{
+  "name": "songs",
+  "version": "1.0.0",
+  "description": "app songs be and fe",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "music",
+    "songs",
+    "web",
+    "crud"
+  ],
+  "author": "Dino Olivieri",
+  "license": "ISC"
+}
