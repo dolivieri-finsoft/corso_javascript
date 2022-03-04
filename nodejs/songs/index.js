@@ -12,9 +12,10 @@ const port = 3000;
 //    nelle precedenti lezioni
 
 // respond with "hello world" when a GET request is made to the homepage
-app.get('/', (req, res) => {
+/*app.get('/', (req, res) => {
   res.send('Songs API - welcome aboard - available routings: create, delete, edit, list');
-});
+});*/
+app.use(express.static('static'));
 
 app.get('/create', (req, res) => {
 
