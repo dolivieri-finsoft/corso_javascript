@@ -13,5 +13,8 @@
     "crud"
   ],
   "author": "Dino Olivieri",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
 }
