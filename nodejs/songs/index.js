@@ -1,3 +1,4 @@
+const fs = require('fs');
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -14,19 +15,138 @@ app.get('/', (req, res) => {
 });
 
 app.get('/create', (req, res) => {
-  res.send('hai chiamato la create');
+
+  let robj = {
+		"result":0,
+		"message":"song successfully created",
+		"data":[]
+	};
+	
+	try{
+
+		if(typeof req.query.title === 'undefined' || req.query.title =='') throw('title parameter required in GET');
+		if(typeof req.query.author === 'undefined' || req.query.author =='') throw('author parameter required in GET');
+		if(typeof req.query.composer === 'undefined' || req.query.composer =='') throw('composer parameter required in GET');
+
+		const d = new Date();
+		let time = d.getTime();
+
+		let s = fs.readFileSync('songs.json', 'utf8');
+		let sobj = JSON.parse(s);
+		sobj.push(
+			{
+				id: time,
+				title: req.query.title,
+				author: req.query.author,
+				composer: req.query.composer
+			}
+		);
+		let new_s = JSON.stringify(sobj);
+		fs.writeFileSync('songs.json', new_s, 'utf8');
+		
+	} catch(err){
+		robj.result = 2000;
+		robj.message = err.toString();
+	}
+	let s= JSON.stringify(robj);
+	res.send(s);
 });
 
 app.get('/delete', (req, res) => {
-  res.send('hai chiamato la delete');
+  
+	let robj = {
+		"result":0,
+		"message":"song successfully deleted",
+		"data":[]
+	};
+	
+	try{
+
+		if(typeof req.query.id === 'undefined' || req.query.id =='') throw('id parameter required in GET');
+
+		let s = fs.readFileSync('songs.json', 'utf8');
+		let sobj = JSON.parse(s);
+		let found = false;
+		for(li=0; li<sobj.length; li++){
+			if(sobj[li].id == req.query.id){
+				// trovato cancello ed esco
+				sobj.splice(li,1);
+				found = true;
+				break;
+			}
+		}
+		if(!found) throw('song to delete not found');
+
+		let new_s = JSON.stringify(sobj);
+		fs.writeFileSync('songs.json', new_s, 'utf8');
+		
+	} catch(err){
+		robj.result = 3000;
+		robj.message = err.toString();
+	}
+	let s= JSON.stringify(robj);
+	res.send(s);
 });
 
 app.get('/edit', (req, res) => {
-  res.send('hai chiamato la edit');
+  let robj = {
+		"result":0,
+		"message":"song successfully edited",
+		"data":[]
+	};
+	
+	try{
+
+		if(typeof req.query.id === 'undefined' || req.query.id =='') throw('id parameter required in GET');
+		if(typeof req.query.title === 'undefined' || req.query.title =='') throw('title parameter required in GET');
+		if(typeof req.query.author === 'undefined' || req.query.author =='') throw('author parameter required in GET');
+		if(typeof req.query.composer === 'undefined' || req.query.composer =='') throw('composer parameter required in GET');
+
+		let s = fs.readFileSync('songs.json', 'utf8');
+		let sobj = JSON.parse(s);
+		let found = false;
+		for(li=0; li<sobj.length; li++){
+			if(sobj[li].id == req.query.id){
+				// trovato modifico ed esco
+				sobj[li].title = req.query.title;
+				sobj[li].author = req.query.author;
+				sobj[li].composer = req.query.composer;
+				found = true;
+				break;
+			}
+		}
+		if(!found) throw('song to edit not found');
+
+		let new_s = JSON.stringify(sobj);
+		fs.writeFileSync('songs.json', new_s, 'utf8');
+		
+	} catch(err){
+		robj.result = 3000;
+		robj.message = err.toString();
+	}
+	let s= JSON.stringify(robj);
+	res.send(s);
 });
 
 app.get('/list', (req, res) => {
-  res.send('hai chiamato la list');
+
+	let robj = {
+		"result":0,
+		"message":"songs list successfully retrieved",
+		"data":[]
+	};
+	
+	try{
+		let s = fs.readFileSync('songs.json', 'utf8');
+		robj.data = JSON.parse(s);
+		
+	} catch(err){
+		robj.result = 1000;
+		robj.message = err.toString();
+	}
+	let s= JSON.stringify(robj);
+	res.send(s);
+
 });
 
 
