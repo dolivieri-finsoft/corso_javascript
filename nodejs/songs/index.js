@@ -3,11 +3,13 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-// 1. TODO creare un file JSON (copia del vecchio stub per iniziare) che sia il DB delle nostre canzoni
-// 2. TODO implementare la list servendo il file JSON stesso (cercare come servire file statici in express js) 
-// 3. TODO implementare la create: legge il json, aggiunge un oggetto all'array, lo salva e risponde come nello stub precedente
-// 4. TODO implementare la edit: legge il json, cerca/modifica un oggetto in array, lo salva e risponde come nello stub precedente
-// 5. TODO implementare la delete: legge il json, cerca e cancella oggetto, lo salva e risponde come nello stub precedente
+// 1. DONE creare un file JSON (copia del vecchio stub per iniziare) che sia il DB delle nostre canzoni
+// 2. DONE implementare la list servendo il file JSON stesso (cercare come servire file statici in express js) 
+// 3. DONE implementare la create: legge il json, aggiunge un oggetto all'array, lo salva e risponde come nello stub precedente
+// 4. DONE implementare la edit: legge il json, cerca/modifica un oggetto in array, lo salva e risponde come nello stub precedente
+// 5. DONE implementare la delete: legge il json, cerca e cancella oggetto, lo salva e risponde come nello stub precedente
+// 6. TODO alla route / (la prima) sostituire il manualetto servendo lavera e propria applicazione di frontend che abbiamo fatto
+//    nelle precedenti lezioni
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', (req, res) => {
@@ -121,7 +123,7 @@ app.get('/edit', (req, res) => {
 		fs.writeFileSync('songs.json', new_s, 'utf8');
 		
 	} catch(err){
-		robj.result = 3000;
+		robj.result = 4000;
 		robj.message = err.toString();
 	}
 	let s= JSON.stringify(robj);
