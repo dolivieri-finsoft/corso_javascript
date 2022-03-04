@@ -1,7 +1,7 @@
 {
   "name": "songs",
   "version": "1.0.0",
-  "description": "app songs be and fe",
+  "description": "app songs be and fe in express js",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
