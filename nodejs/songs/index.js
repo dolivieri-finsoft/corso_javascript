@@ -8,15 +8,15 @@ const port = 3000;
 // 3. DONE implementare la create: legge il json, aggiunge un oggetto all'array, lo salva e risponde come nello stub precedente
 // 4. DONE implementare la edit: legge il json, cerca/modifica un oggetto in array, lo salva e risponde come nello stub precedente
 // 5. DONE implementare la delete: legge il json, cerca e cancella oggetto, lo salva e risponde come nello stub precedente
-// 6. TODO alla route / (la prima) sostituire il manualetto servendo lavera e propria applicazione di frontend che abbiamo fatto
+// 6. DONE alla route / (la prima) sostituire il manualetto servendo lavera e propria applicazione di frontend che abbiamo fatto
 //    nelle precedenti lezioni
 
-// respond with "hello world" when a GET request is made to the homepage
-/*app.get('/', (req, res) => {
-  res.send('Songs API - welcome aboard - available routings: create, delete, edit, list');
-});*/
+// volendo servire una o più folder statiche (cioè di file statici) posso usare il seguente comando
+// in questo caso la directory si chiama proprio static, ma potrebbe chiamarsi anche pippo
 app.use(express.static('static'));
 
+// creo una rotta per la create song
+// required params: title, author, composer
 app.get('/create', (req, res) => {
 
   let robj = {
@@ -55,6 +55,8 @@ app.get('/create', (req, res) => {
 	res.send(s);
 });
 
+// creo una rotta per la delete song
+// required params: id
 app.get('/delete', (req, res) => {
   
 	let robj = {
@@ -91,6 +93,8 @@ app.get('/delete', (req, res) => {
 	res.send(s);
 });
 
+// creo una rotta per la edit song
+// required params: id, title, author, composer
 app.get('/edit', (req, res) => {
   let robj = {
 		"result":0,
@@ -131,6 +135,8 @@ app.get('/edit', (req, res) => {
 	res.send(s);
 });
 
+// creo una rotta per la list songs
+// required params: (none)
 app.get('/list', (req, res) => {
 
 	let robj = {
