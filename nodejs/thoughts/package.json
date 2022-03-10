@@ -1,5 +1,5 @@
 {
-  "name": "minisocial",
+  "name": "thoughts",
   "version": "1.0.0",
   "description": "piccola app fe e be per gestire un diario (log)",
   "main": "index.js",

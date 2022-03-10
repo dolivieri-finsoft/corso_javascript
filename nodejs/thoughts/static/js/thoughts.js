@@ -1,0 +1,1 @@
+console.log("Thoughts front-end loaded");

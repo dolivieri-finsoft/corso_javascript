@@ -1,6 +1,6 @@
-console.log("minisocial started!");
+console.log("Thoughts started!");
 
-// TODOs del minisocial
+// TODOs del Thoughts
 // 1. TODO fare un frontend che mostri sempre due cose: 1 form di inserimento di un pensiero (1 testo) e una lista dei pensieri precedentemente inseriti (in ordine INVERSO di inserimento)
 // 2. TODO fare un backend che implementi le seguenti operazioni:
 // 3. TODO list (dei pensieri)
@@ -19,5 +19,5 @@ const port = 10001;
 app.use(express.static('static'));
 
 app.listen(port, () => {
-	console.log(`minisocial app listening on port ${port}`);
+	console.log(`Thoughts app listening on port ${port}`);
 });
