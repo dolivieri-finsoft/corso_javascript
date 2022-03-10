@@ -44,7 +44,7 @@
 					<button class="btn btn-primary" type="button" id="button-save-thought">Write Thought</button>
 				</div>
 				<div class="input-group mb-3">
-					<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+					<select id="select-thoughts-order" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
 						<option value="recent" selected>most recent first</option>
 						<option value="appreciated">most appreciated first</option>
 					</select>
@@ -58,7 +58,7 @@
 		<footer class="footer mt-auto py-3 bg-light">
 			<div class="container">
 				<span class="text-muted">Corso di Javascript 2022.</span>
-				| Welcome <span class="text-muted span-author-name"></span>
+				| Welcome <span class="text-muted span-author-name"></span> alias <span class="text-muted span-nickname"></span>
 			</div>
 		</footer>
 
@@ -101,7 +101,7 @@
 						</figcaption>
 					</figure>
 					<div class="appreciate-bar">
-						<button type="button" class="btn btn-danger position-relative button-delete" data-thought-id="{{id}}">Delete</button>
+						<button type="button" class="btn btn-danger position-relative button-delete {{delete_switch}}" data-thought-id="{{id}}">Delete</button>
 						<button type="button" class="btn btn-primary position-relative button-appreciate" data-thought-id="{{id}}">
 							Appreciate
 							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">

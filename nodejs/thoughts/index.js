@@ -69,8 +69,16 @@ app.get('/list', (req, res) => {
 	
 	try{
 		let s = fs.readFileSync('thoughts.json', 'utf8');
-		robj.data = JSON.parse(s);
-		
+		_t = JSON.parse(s);
+
+		if(req.query.orderby == 'appreciated'){
+			_t.sort((a,b)=>{
+				return b.likes-a.likes;
+			});
+		}
+
+		robj.data = _t;
+
 	} catch(err){
 		robj.result = 1000;
 		robj.message = err.toString();
