@@ -51,32 +51,14 @@
 				</div>
 			</div>
 			<div class="container" id="thoughts-container">
-				<div class="thought-box">
-					<figure class="text-center">
-						<blockquote class="blockquote">
-							<p>A well-known quote, contained in a blockquote element.</p>
-						</blockquote>
-						<figcaption class="blockquote-footer">
-							Someone famous in <cite title="Source Title">Source Title</cite>
-						</figcaption>
-					</figure>
-					<div class="appreciate-bar">
-						<button type="button" class="btn btn-danger position-relative button-delete">Delete</button>
-						<button type="button" class="btn btn-primary position-relative button-appreciate">
-							Appreciate
-							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-								36
-								<span class="visually-hidden">Appreciations</span>
-							</span>
-						</button>
-					</div>
-				</div>
+				
 			</div>
 		</main>
 
 		<footer class="footer mt-auto py-3 bg-light">
 			<div class="container">
 				<span class="text-muted">Corso di Javascript 2022.</span>
+				| Welcome <span class="text-muted span-author-name"></span>
 			</div>
 		</footer>
 
@@ -104,6 +86,33 @@
 					</form>
 				</div>
 			</div>
+		</div>
+
+		<div id="template-storage" style="display:none">
+		
+			<div id="template-thought">
+				<div class="thought-box">
+					<figure class="text-center">
+						<blockquote class="blockquote">
+							<p>{{thought}}</p>
+						</blockquote>
+						<figcaption class="blockquote-footer">
+							Written by <cite title="Author">{{author}}</cite>
+						</figcaption>
+					</figure>
+					<div class="appreciate-bar">
+						<button type="button" class="btn btn-danger position-relative button-delete" data-thought-id="{{id}}">Delete</button>
+						<button type="button" class="btn btn-primary position-relative button-appreciate" data-thought-id="{{id}}">
+							Appreciate
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+								{{likes}}
+								<span class="visually-hidden">Appreciations</span>
+							</span>
+						</button>
+					</div>
+				</div>
+			</div>
+
 		</div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

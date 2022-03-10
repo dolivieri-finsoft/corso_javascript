@@ -18,6 +18,68 @@ const port = 10001;
 
 app.use(express.static('static'));
 
+app.get('/login', (req, res) => {
+  
+	let robj = {
+		"result":0,
+		"message":"welcome, you are logged in",
+		"data":[]
+	};
+	
+	try{
+
+		if(typeof req.query.nickname === 'undefined' || req.query.nickname =='') throw('nickname parameter required in GET');
+		if(typeof req.query.password === 'undefined' || req.query.password =='') throw('password parameter required in GET');
+
+		let s = fs.readFileSync('users.json', 'utf8');
+		let sobj = JSON.parse(s);
+		let found = false;
+		for(li=0; li<sobj.length; li++){
+			if((sobj[li].nickname == req.query.nickname) && (sobj[li].password == req.query.password)){
+				// trovato utente
+				robj.data.push({
+					nickname: sobj[li].nickname,
+					token: sobj[li].token,
+					author: sobj[li].author
+				});
+				found = true;
+				break;
+			}
+		}
+		if(!found) throw('user not found');
+
+		//let new_s = JSON.stringify(sobj);
+		//fs.writeFileSync('songs.json', new_s, 'utf8');
+		
+	} catch(err){
+		robj.result = 10000;
+		robj.message = err.toString();
+	}
+	let s= JSON.stringify(robj);
+	res.send(s);
+});
+
+app.get('/list', (req, res) => {
+
+	let robj = {
+		"result":0,
+		"message":"thoughts list successfully retrieved",
+		"data":[]
+	};
+	
+	try{
+		let s = fs.readFileSync('thoughts.json', 'utf8');
+		robj.data = JSON.parse(s);
+		
+	} catch(err){
+		robj.result = 1000;
+		robj.message = err.toString();
+	}
+	let s= JSON.stringify(robj);
+	res.send(s);
+
+});
+
 app.listen(port, () => {
 	console.log(`Thoughts app listening on port ${port}`);
 });
