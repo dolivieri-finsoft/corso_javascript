@@ -1,0 +1,11 @@
+main {
+	padding: 60px 15px 0;
+}
+
+.thought-box{
+	border: 1px solid #cdd4da;
+	padding: 2rem 1rem 1rem 1rem;
+}
+.appreciate-bar{
+	text-align: right;
+}

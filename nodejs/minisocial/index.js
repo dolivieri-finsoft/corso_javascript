@@ -9,3 +9,15 @@ console.log("minisocial started!");
 // 6. TODO mostrare un gradimento (numero) del pensiero
 // 7. TODO gestire l'aggiunta di un +1 al gradimento di un pensiero
 // 8. TODO gestire un selettore di cambio ordinamento lista che consente di mostrare la list in due modi (ordine temporale INVERSO oppure GRADIMENTO DISCENDENTE)
+
+
+const fs = require('fs');
+const express = require('express');
+const app = express();
+const port = 10001;
+
+app.use(express.static('static'));
+
+app.listen(port, () => {
+	console.log(`minisocial app listening on port ${port}`);
+});

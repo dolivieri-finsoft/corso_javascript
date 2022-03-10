@@ -1,0 +1,1 @@
+console.log("minisocial front-end loaded");
