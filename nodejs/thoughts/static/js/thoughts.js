@@ -147,12 +147,14 @@ function refreshThoughts(event){
 				let row = template_thought;
 				let delete_switch = (me.nickname == json.data[li].nickname)?"":"nascondi";
 				let appreciate_switch = (me.nickname == json.data[li].nickname)?"disabled":"";
+				let appreciate_class_toggle = (json.data[li].likes.includes(me.nickname))?"btn-primary":"btn-outline-primary";
 				rows += row.replaceAll("{{id}}", json.data[li].id)
 					.replaceAll("{{thought}}", json.data[li].thought)
-					.replaceAll("{{likes}}", json.data[li].likes)
+					.replaceAll("{{likes}}", json.data[li].likes.length)
 					.replaceAll("{{author}}", json.data[li].author)
 					.replaceAll("{{delete_switch}}", delete_switch)
-					.replaceAll("{{appreciate_switch}}", appreciate_switch);
+					.replaceAll("{{appreciate_switch}}", appreciate_switch)
+					.replaceAll("{{appreciate-class-toggle}}", appreciate_class_toggle);
 			}
 		}
 		document.getElementById("thoughts-container").innerHTML = rows;

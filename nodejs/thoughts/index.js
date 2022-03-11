@@ -97,7 +97,7 @@ app.get('/list', (req, res) => {
 
 		if(req.query.orderby == 'appreciated'){
 			_t.sort((a,b)=>{
-				return b.likes-a.likes;
+				return b.likes.length - a.likes.length;
 			});
 		}
 
@@ -181,7 +181,7 @@ app.get('/create', (req, res) => {
 				thought: req.query.thought,
 				author: user.author,
 				nickname: user.nickname,
-				likes: 0
+				likes: []
 			}
 		);
 		let new_s = JSON.stringify(sobj);
@@ -258,13 +258,18 @@ app.get('/appreciate', (req, res) => {
 		let found = false;
 		for(li=0; li<sobj.length; li++){
 			if(sobj[li].id == req.query.id){
-				// trovato lo apprezzo ed esco
-				sobj[li].likes++;
+				// trovato lo apprezzo aggiungendo il nickname ai likes (solo se non c'è già) ed esco
+				let like_index = sobj[li].likes.indexOf(user.nickname);
+				if(like_index < 0)
+					sobj[li].likes.push(user.nickname);
+				else
+					sobj[li].likes.splice(like_index, 1);
+
 				found = true;
 				break;
 			}
 		}
-		if(!found) throw('thought to delete not found');
+		if(!found) throw('thought to appreciate not found');
 
 		let new_s = JSON.stringify(sobj);
 		fs.writeFileSync('thoughts.json', new_s, 'utf8');

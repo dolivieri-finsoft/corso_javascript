@@ -10,5 +10,11 @@
 		"password":"456",
 		"token":"gfdklgjfdlkgjd",
 		"author":"Giuseppe Rossi"
+	},
+	{
+		"nickname":"gino",
+		"password":"789",
+		"token":"gfgfkldjghfdghfkldjh",
+		"author":"Giovanni Verdi"
 	}
 ]
