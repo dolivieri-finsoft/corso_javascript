@@ -10,6 +10,8 @@ console.log("Thoughts front-end loaded");
 
 function login(event){
 
+	event.preventDefault();
+
 	let login_nickname = document.getElementById("input_nickname").value;
 	let login_password = document.getElementById("input_password").value;
 
