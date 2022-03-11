@@ -12,3 +12,7 @@ main {
 .nascondi{
 	display:none
 }
+
+.likes-wrapper{
+	display:inline;
+}

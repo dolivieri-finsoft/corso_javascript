@@ -103,13 +103,15 @@
 					</figure>
 					<div class="appreciate-bar">
 						<button type="button" class="btn btn-danger position-relative delete-thought {{delete_switch}}" data-thought-id="{{id}}">Delete</button>
-						<button type="button" class="btn position-relative appreciate-thought {{appreciate-class-toggle}}" data-thought-id="{{id}}" {{appreciate_switch}}>
-							<i class="bi bi-star-fill"></i>
-							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-								{{likes}}
-								<span class="visually-hidden">Appreciations</span>
-							</span>
-						</button>
+						<div class="likes-wrapper" title="{{voters}}">
+							<button type="button" class="btn position-relative appreciate-thought {{appreciate-class-toggle}}" data-thought-id="{{id}}" {{appreciate_switch}}>
+								<i class="bi bi-star-fill"></i>
+								<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+									{{likes}}
+									<span class="visually-hidden">Appreciations</span>
+								</span>
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>

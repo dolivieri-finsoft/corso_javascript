@@ -154,6 +154,7 @@ function refreshThoughts(event){
 					.replaceAll("{{author}}", json.data[li].author)
 					.replaceAll("{{delete_switch}}", delete_switch)
 					.replaceAll("{{appreciate_switch}}", appreciate_switch)
+					.replaceAll("{{voters}}", json.data[li].likes.join(', '))
 					.replaceAll("{{appreciate-class-toggle}}", appreciate_class_toggle);
 			}
 		}
