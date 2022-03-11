@@ -5,6 +5,8 @@ let loginModal = null;
 let template_thought = null;
 let me = null;
 let order_select = null;
+let button_save_thought = null;
+let textarea_thought = null;
 
 console.log("Thoughts front-end loaded");
 
@@ -48,8 +50,81 @@ function login(event){
 	});
 }
 
+function deleteThought(event){
+	let originator = event.currentTarget;
+	let thought_id = originator.getAttribute('data-thought-id');
+	console.log("delete id="+thought_id);
+
+	if(confirm("Sei sicuro di voler cancellare il pensiero: "+thought_id)){
+		fetch(base_url+"delete?id="+encodeURIComponent(thought_id)
+		+"&token="+encodeURIComponent(me.token)
+		)
+		.then(function(response) {
+			return response.json();
+		})
+		.then(function(json) {
+				
+				console.log(json);
+
+				if(json.result !== 0){
+					alert("Error "+json.result+" in deleteThought: "+json.message);
+				}
+				refreshThoughts();
+				
+		})
+		.catch(function(err) { 
+				alert(err);
+				console.log('Failed to fetch page: ', err);
+		});
+	}
+}
+
+function appreciateThought(event){
+	let originator = event.currentTarget;
+	let thought_id = originator.getAttribute('data-thought-id');
+	console.log("appreciate id="+thought_id);
+
+	fetch(base_url+"appreciate?id="+encodeURIComponent(thought_id)
+	+"&token="+encodeURIComponent(me.token)
+	)
+	.then(function(response) {
+		return response.json();
+	})
+	.then(function(json) {
+			
+			console.log(json);
+
+			if(json.result !== 0){
+				alert("Error "+json.result+" in appreciateThought: "+json.message);
+			}
+			refreshThoughts();
+			
+	})
+	.catch(function(err) { 
+			alert(err);
+			console.log('Failed to fetch page: ', err);
+	});
+}
+
 function agganciaEventiAppreciateDelete(){
-	alert("TODO agganciaEventiAppreciateDelete");
+
+	/*
+	let bottoniEditThought = document.getElementsByClassName("edit-thought");
+	for(let li=0; li<bottoniEditThought.length; li++){
+		bottoniEditThought[li].addEventListener("click", editThought);
+	}
+	*/
+
+	let bottoniDeleteThought = document.getElementsByClassName("delete-thought");
+	for(let li=0; li<bottoniDeleteThought.length; li++){
+		bottoniDeleteThought[li].addEventListener("click", deleteThought);
+	}
+
+	let bottoniAppreciateThought = document.getElementsByClassName("appreciate-thought");
+	for(let li=0; li<bottoniAppreciateThought.length; li++){
+		bottoniAppreciateThought[li].addEventListener("click", appreciateThought);
+	}
+
 }
 
 function refreshThoughts(event){
@@ -71,11 +146,13 @@ function refreshThoughts(event){
 			for(let li=0; li<json.data.length; li++){
 				let row = template_thought;
 				let delete_switch = (me.nickname == json.data[li].nickname)?"":"nascondi";
+				let appreciate_switch = (me.nickname == json.data[li].nickname)?"disabled":"";
 				rows += row.replaceAll("{{id}}", json.data[li].id)
 					.replaceAll("{{thought}}", json.data[li].thought)
 					.replaceAll("{{likes}}", json.data[li].likes)
 					.replaceAll("{{author}}", json.data[li].author)
-					.replaceAll("{{delete_switch}}", delete_switch);
+					.replaceAll("{{delete_switch}}", delete_switch)
+					.replaceAll("{{appreciate_switch}}", appreciate_switch);
 			}
 		}
 		document.getElementById("thoughts-container").innerHTML = rows;
@@ -85,6 +162,33 @@ function refreshThoughts(event){
 			alert(err);
 			console.log('Failed to fetch page: ', err);
 	});	
+}
+
+function createThought(event){
+
+	let thought = textarea_thought.value;
+
+	fetch(base_url+"create?thought="+encodeURIComponent(thought)
+		+"&token="+encodeURIComponent(me.token))
+	.then(function(response) {
+		return response.json();
+	})
+	.then(function(json) {
+			
+			console.log(json);
+
+			if(json.result !== 0){
+				alert("Error "+json.result+" in createThought: "+json.message);
+			}
+			textarea_thought.value = "";
+			refreshThoughts();
+			
+	})
+	.catch(function(err) { 
+			alert(err);
+			console.log('Failed to fetch page: ', err);
+	});
+
 }
 
 window.addEventListener(
@@ -100,6 +204,10 @@ window.addEventListener(
 
 		order_select = document.getElementById("select-thoughts-order");
     order_select.addEventListener("change", refreshThoughts);
+
+		textarea_thought = document.getElementById("textarea-thought");
+		button_save_thought = document.getElementById("button-create-thought");
+		button_save_thought.addEventListener("click", createThought);
 
 		loginModal = new bootstrap.Modal(document.getElementById('loginModal'), {});
 

@@ -15,6 +15,30 @@ const fs = require('fs');
 const express = require('express');
 const app = express();
 const port = 10001;
+let users = [];
+
+function getUserFromToken(token){
+
+	for(li=0; li<users.length; li++){
+		if(users[li].token ==token){
+			// trovato utente con il token specificato
+			return users[li];
+		}
+	}
+
+	return null;
+}
+
+function loadUsers(){
+	let s = fs.readFileSync('users.json', 'utf8');
+	users = JSON.parse(s);
+}
+
+// init
+
+loadUsers();
+
+// route
 
 app.use(express.static('static'));
 
@@ -31,16 +55,16 @@ app.get('/login', (req, res) => {
 		if(typeof req.query.nickname === 'undefined' || req.query.nickname =='') throw('nickname parameter required in GET');
 		if(typeof req.query.password === 'undefined' || req.query.password =='') throw('password parameter required in GET');
 
-		let s = fs.readFileSync('users.json', 'utf8');
-		let sobj = JSON.parse(s);
+		loadUsers();
+
 		let found = false;
-		for(li=0; li<sobj.length; li++){
-			if((sobj[li].nickname == req.query.nickname) && (sobj[li].password == req.query.password)){
+		for(li=0; li<users.length; li++){
+			if((users[li].nickname == req.query.nickname) && (users[li].password == req.query.password)){
 				// trovato utente
 				robj.data.push({
-					nickname: sobj[li].nickname,
-					token: sobj[li].token,
-					author: sobj[li].author
+					nickname: users[li].nickname,
+					token: users[li].token,
+					author: users[li].author
 				});
 				found = true;
 				break;
@@ -86,6 +110,171 @@ app.get('/list', (req, res) => {
 	let s= JSON.stringify(robj);
 	res.send(s);
 
+});
+
+/*
+app.get('/edit', (req, res) => {
+  let robj = {
+		"result":0,
+		"message":"song successfully edited",
+		"data":[]
+	};
+	
+	try{
+
+		if(typeof req.query.id === 'undefined' || req.query.id =='') throw('id parameter required in GET');
+		if(typeof req.query.title === 'undefined' || req.query.title =='') throw('title parameter required in GET');
+		if(typeof req.query.author === 'undefined' || req.query.author =='') throw('author parameter required in GET');
+		if(typeof req.query.composer === 'undefined' || req.query.composer =='') throw('composer parameter required in GET');
+
+		let s = fs.readFileSync('songs.json', 'utf8');
+		let sobj = JSON.parse(s);
+		let found = false;
+		for(li=0; li<sobj.length; li++){
+			if(sobj[li].id == req.query.id){
+				// trovato modifico ed esco
+				sobj[li].title = req.query.title;
+				sobj[li].author = req.query.author;
+				sobj[li].composer = req.query.composer;
+				found = true;
+				break;
+			}
+		}
+		if(!found) throw('song to edit not found');
+
+		let new_s = JSON.stringify(sobj);
+		fs.writeFileSync('songs.json', new_s, 'utf8');
+		
+	} catch(err){
+		robj.result = 4000;
+		robj.message = err.toString();
+	}
+	let s= JSON.stringify(robj);
+	res.send(s);
+});
+*/
+
+app.get('/create', (req, res) => {
+
+  let robj = {
+		"result":0,
+		"message":"thought successfully created",
+		"data":[]
+	};
+	
+	try{
+
+		if(typeof req.query.token === 'undefined' || req.query.token =='') throw('token parameter required in GET');
+		if(typeof req.query.thought === 'undefined' || req.query.thought =='') throw('thought parameter required in GET');
+
+		let user = getUserFromToken(req.query.token);
+		if(user == null) throw('user token not found in users');
+
+		const d = new Date();
+		let time = d.getTime();
+
+		let s = fs.readFileSync('thoughts.json', 'utf8');
+		let sobj = JSON.parse(s);
+		sobj.unshift(
+			{
+				id: time,
+				thought: req.query.thought,
+				author: user.author,
+				nickname: user.nickname,
+				likes: 0
+			}
+		);
+		let new_s = JSON.stringify(sobj);
+		fs.writeFileSync('thoughts.json', new_s, 'utf8');
+		
+	} catch(err){
+		robj.result = 2000;
+		robj.message = err.toString();
+	}
+	let s= JSON.stringify(robj);
+	res.send(s);
+});
+
+app.get('/delete', (req, res) => {
+  
+	let robj = {
+		"result":0,
+		"message":"thought successfully deleted",
+		"data":[]
+	};
+	
+	try{
+
+		if(typeof req.query.token === 'undefined' || req.query.token =='') throw('token parameter required in GET');
+		if(typeof req.query.id === 'undefined' || req.query.id =='') throw('id parameter required in GET');
+
+		let user = getUserFromToken(req.query.token);
+		if(user == null) throw('user token not found in users');
+
+
+		let s = fs.readFileSync('thoughts.json', 'utf8');
+		let sobj = JSON.parse(s);
+		let found = false;
+		for(li=0; li<sobj.length; li++){
+			if(sobj[li].id == req.query.id){
+				// trovato cancello ed esco
+				sobj.splice(li,1);
+				found = true;
+				break;
+			}
+		}
+		if(!found) throw('thought to delete not found');
+
+		let new_s = JSON.stringify(sobj);
+		fs.writeFileSync('thoughts.json', new_s, 'utf8');
+		
+	} catch(err){
+		robj.result = 3000;
+		robj.message = err.toString();
+	}
+	let s= JSON.stringify(robj);
+	res.send(s);
+});
+
+app.get('/appreciate', (req, res) => {
+  
+	let robj = {
+		"result":0,
+		"message":"thought successfully appreciated",
+		"data":[]
+	};
+	
+	try{
+
+		if(typeof req.query.token === 'undefined' || req.query.token =='') throw('token parameter required in GET');
+		if(typeof req.query.id === 'undefined' || req.query.id =='') throw('id parameter required in GET');
+
+		let user = getUserFromToken(req.query.token);
+		if(user == null) throw('user token not found in users');
+
+
+		let s = fs.readFileSync('thoughts.json', 'utf8');
+		let sobj = JSON.parse(s);
+		let found = false;
+		for(li=0; li<sobj.length; li++){
+			if(sobj[li].id == req.query.id){
+				// trovato lo apprezzo ed esco
+				sobj[li].likes++;
+				found = true;
+				break;
+			}
+		}
+		if(!found) throw('thought to delete not found');
+
+		let new_s = JSON.stringify(sobj);
+		fs.writeFileSync('thoughts.json', new_s, 'utf8');
+		
+	} catch(err){
+		robj.result = 5000;
+		robj.message = err.toString();
+	}
+	let s= JSON.stringify(robj);
+	res.send(s);
 });
 
 app.listen(port, () => {

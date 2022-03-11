@@ -40,8 +40,8 @@
 		<main class="flex-shrink-0">
 			<div class="container">
 				<div class="input-group mb-3">
-					<textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-					<button class="btn btn-primary" type="button" id="button-save-thought">Write Thought</button>
+					<textarea class="form-control" id="textarea-thought" rows="5"></textarea>
+					<button class="btn btn-primary" type="button" id="button-create-thought">Write Thought</button>
 				</div>
 				<div class="input-group mb-3">
 					<select id="select-thoughts-order" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
@@ -101,8 +101,8 @@
 						</figcaption>
 					</figure>
 					<div class="appreciate-bar">
-						<button type="button" class="btn btn-danger position-relative button-delete {{delete_switch}}" data-thought-id="{{id}}">Delete</button>
-						<button type="button" class="btn btn-primary position-relative button-appreciate" data-thought-id="{{id}}">
+						<button type="button" class="btn btn-danger position-relative delete-thought {{delete_switch}}" data-thought-id="{{id}}">Delete</button>
+						<button type="button" class="btn btn-primary position-relative appreciate-thought" data-thought-id="{{id}}" {{appreciate_switch}}>
 							Appreciate
 							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
 								{{likes}}
