@@ -79,6 +79,54 @@ function deleteThought(event){
 	}
 }
 
+function encodeHTMLEntities(text) {
+  let textArea = document.createElement('textarea');
+  textArea.innerText = text;
+  return textArea.innerHTML;
+}
+
+function inputEditThought(event){
+
+	let originator = event.currentTarget;
+	let thought_id = originator.getAttribute('data-thought-id');
+	let original_thought = originator.getAttribute('data-original-thought');
+	let changed_thought = originator.textContent.trim();
+
+	console.log("edit id="+thought_id, "|"+original_thought+"|", "|"+changed_thought+"|");
+
+	
+	let _b = originator.parentElement.parentElement.querySelectorAll("button.gruppo-edit-buttons");
+	let _d = (original_thought == changed_thought);
+	for(let li=0; li<_b.length; li++){
+		_b[li].disabled = _d;
+	}
+}
+
+function restoreThought(event){
+	let originator = event.currentTarget;
+	let thought_id = originator.getAttribute('data-thought-id');
+	console.log("restore id="+thought_id);
+
+	let _bq_array = document.querySelectorAll('.editable-blockquote[data-thought-id="'+thought_id+'"]');
+	if(_bq_array.length>0){
+		//_bq_array[0].blur();
+		let _t = _bq_array[0].getAttribute("data-original-thought");
+		_bq_array[0].textContent = _t;
+		
+		var event = new Event('input');
+		_bq_array[0].dispatchEvent(event);
+	}
+}
+
+function editThought(event){
+	let originator = event.currentTarget;
+	let thought_id = originator.getAttribute('data-thought-id');
+	console.log("edit id="+thought_id);
+
+	// TODO
+	
+}
+
 function appreciateThought(event){
 	let originator = event.currentTarget;
 	let thought_id = originator.getAttribute('data-thought-id');
@@ -106,14 +154,22 @@ function appreciateThought(event){
 	});
 }
 
-function agganciaEventiAppreciateDelete(){
+function agganciaEventiAppreciateDeleteEdit(){
 
-	/*
+	let blockquoteEditThought = document.querySelectorAll('.editable-blockquote[contenteditable="true"]');
+	for(let li=0; li<blockquoteEditThought.length; li++){
+		blockquoteEditThought[li].addEventListener("input", inputEditThought);
+	}
+
+	let bottoniRestoreThought = document.getElementsByClassName("restore-thought");
+	for(let li=0; li<bottoniRestoreThought.length; li++){
+		bottoniRestoreThought[li].addEventListener("click", restoreThought);
+	}
+
 	let bottoniEditThought = document.getElementsByClassName("edit-thought");
 	for(let li=0; li<bottoniEditThought.length; li++){
 		bottoniEditThought[li].addEventListener("click", editThought);
 	}
-	*/
 
 	let bottoniDeleteThought = document.getElementsByClassName("delete-thought");
 	for(let li=0; li<bottoniDeleteThought.length; li++){
@@ -145,21 +201,23 @@ function refreshThoughts(event){
 		} else {
 			for(let li=0; li<json.data.length; li++){
 				let row = template_thought;
-				let delete_switch = (me.nickname == json.data[li].nickname)?"":"nascondi";
+				let ismine_switch = (me.nickname == json.data[li].nickname)?"":"nascondi";
+				let ismythought_switch = (me.nickname == json.data[li].nickname)?"true":"false";
 				let appreciate_switch = (me.nickname == json.data[li].nickname)?"disabled":"";
 				let appreciate_class_toggle = (json.data[li].likes.includes(me.nickname))?"btn-primary":"btn-outline-primary";
 				rows += row.replaceAll("{{id}}", json.data[li].id)
-					.replaceAll("{{thought}}", json.data[li].thought)
+					.replaceAll("{{thought}}", encodeHTMLEntities(json.data[li].thought))
 					.replaceAll("{{likes}}", json.data[li].likes.length)
 					.replaceAll("{{author}}", json.data[li].author)
-					.replaceAll("{{delete_switch}}", delete_switch)
+					.replaceAll("{{ismythought_switch}}", ismythought_switch)
+					.replaceAll("{{ismine_switch}}", ismine_switch)
 					.replaceAll("{{appreciate_switch}}", appreciate_switch)
 					.replaceAll("{{voters}}", json.data[li].likes.join(', '))
 					.replaceAll("{{appreciate-class-toggle}}", appreciate_class_toggle);
 			}
 		}
 		document.getElementById("thoughts-container").innerHTML = rows;
-		agganciaEventiAppreciateDelete();
+		agganciaEventiAppreciateDeleteEdit();
 	})
 	.catch(function(err) { 
 			alert(err);

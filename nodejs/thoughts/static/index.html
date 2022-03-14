@@ -94,8 +94,8 @@
 			<div id="template-thought">
 				<div class="thought-box">
 					<figure class="text-center">
-						<blockquote class="blockquote">
-							<p>{{thought}}</p>
+						<blockquote class="blockquote editable-blockquote" contenteditable="{{ismythought_switch}}" data-thought-id="{{id}}" data-original-thought="{{thought}}">
+							{{thought}}
 						</blockquote>
 						<figcaption class="blockquote-footer">
 							Written by <cite title="Author">{{author}}</cite>
@@ -103,7 +103,11 @@
 					</figure>
 					<div class="appreciate-bar">
 						<div class="voters-list">appreciated by <cite>{{voters}}</cite></div>
-						<button type="button" class="btn btn-danger position-relative delete-thought {{delete_switch}}" data-thought-id="{{id}}"><i class="bi bi-trash"></i></button>
+
+						<button type="button" class="btn btn-light position-relative restore-thought gruppo-edit-buttons {{ismine_switch}}" data-thought-id="{{id}}" {{appreciate_switch}}><i class="bi bi-arrow-counterclockwise"></i></button>
+						<button type="button" class="btn btn-success position-relative edit-thought gruppo-edit-buttons {{ismine_switch}}" data-thought-id="{{id}}" {{appreciate_switch}}><i class="bi bi-pencil"></i></button>
+
+						<button type="button" class="btn btn-danger position-relative delete-thought {{ismine_switch}}" data-thought-id="{{id}}"><i class="bi bi-trash"></i></button>
 						<div class="likes-wrapper" title="{{voters}}">
 							<button type="button" class="btn position-relative appreciate-thought {{appreciate-class-toggle}}" data-thought-id="{{id}}" {{appreciate_switch}}>
 								<i class="bi bi-star-fill"></i>
