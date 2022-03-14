@@ -218,6 +218,9 @@ app.get('/delete', (req, res) => {
 		for(li=0; li<sobj.length; li++){
 			if(sobj[li].id == req.query.id){
 				// trovato cancello ed esco
+
+				if(sobj[li].nickname !== user.nickname) throw('security issue #1 in /delete');
+
 				sobj.splice(li,1);
 				found = true;
 				break;
