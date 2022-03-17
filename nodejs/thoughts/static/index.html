@@ -102,10 +102,10 @@
 						</figcaption>
 					</figure>
 					<div class="appreciate-bar">
-						<div class="voters-list">appreciated by <cite>{{voters}}</cite></div>
+						<div class="voters-list {{has_likes}}">appreciated by <cite>{{voters}}</cite></div>
 
-						<button type="button" class="btn btn-light position-relative restore-thought gruppo-edit-buttons {{ismine_switch}}" data-thought-id="{{id}}" {{appreciate_switch}}><i class="bi bi-arrow-counterclockwise"></i></button>
-						<button type="button" class="btn btn-success position-relative edit-thought gruppo-edit-buttons {{ismine_switch}}" data-thought-id="{{id}}" {{appreciate_switch}}><i class="bi bi-save"></i></button>
+						<button type="button" class="btn btn-light position-relative restore-thought gruppo-edit-buttons nascondi" data-thought-id="{{id}}" {{appreciate_switch}}><i class="bi bi-arrow-counterclockwise"></i></button>
+						<button type="button" class="btn btn-success position-relative edit-thought gruppo-edit-buttons nascondi" data-thought-id="{{id}}" {{appreciate_switch}}><i class="bi bi-save"></i></button>
 
 						<button type="button" class="btn btn-danger position-relative delete-thought {{ismine_switch}}" data-thought-id="{{id}}"><i class="bi bi-trash"></i></button>
 						<div class="likes-wrapper" title="{{voters}}">

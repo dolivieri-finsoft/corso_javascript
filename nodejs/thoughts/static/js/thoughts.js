@@ -101,9 +101,21 @@ function inputEditThought(event){
 	console.log("edit id="+thought_id, "|"+original_thought+"|", "|"+changed_thought+"|");
 	
 	let _b = document.querySelectorAll('.gruppo-edit-buttons[data-thought-id="'+thought_id+'"]');
-	let _d = (original_thought == changed_thought);
+	let non_modificato = (original_thought == changed_thought);
+
+	if(non_modificato){
+		originator.classList.remove('modificato');
+	} else {
+		originator.classList.add('modificato');
+	}
+
 	for(let li=0; li<_b.length; li++){
-		_b[li].disabled = _d;
+		_b[li].disabled = non_modificato;
+		if(non_modificato){
+			_b[li].classList.add('nascondi');
+		} else {
+			_b[li].classList.remove('nascondi');
+		}
 	}
 }
 
@@ -233,6 +245,7 @@ function refreshThoughts(event){
 			for(let li=0; li<json.data.length; li++){
 				let row = template_thought;
 				let ismine_switch = (me.nickname == json.data[li].nickname)?"":"nascondi";
+				let has_likes = (json.data[li].likes.length > 0)?"":"nascondi";
 				let ismythought_switch = (me.nickname == json.data[li].nickname)?"true":"false";
 				let appreciate_switch = (me.nickname == json.data[li].nickname)?"disabled":"";
 				let appreciate_class_toggle = (json.data[li].likes.includes(me.nickname))?"btn-primary":"btn-outline-primary";
@@ -242,6 +255,7 @@ function refreshThoughts(event){
 					.replaceAll("{{author}}", json.data[li].author)
 					.replaceAll("{{ismythought_switch}}", ismythought_switch)
 					.replaceAll("{{ismine_switch}}", ismine_switch)
+					.replaceAll("{{has_likes}}", has_likes)
 					.replaceAll("{{appreciate_switch}}", appreciate_switch)
 					.replaceAll("{{voters}}", json.data[li].likes.join(', '))
 					.replaceAll("{{appreciate-class-toggle}}", appreciate_class_toggle);
