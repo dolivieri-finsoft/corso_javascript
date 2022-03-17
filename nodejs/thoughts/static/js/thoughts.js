@@ -80,9 +80,15 @@ function deleteThought(event){
 }
 
 function encodeHTMLEntities(text) {
-  let textArea = document.createElement('textarea');
-  textArea.innerText = text;
-  return textArea.innerHTML;
+
+	let _htmlent = text.replaceAll("&","&amp;")
+	.replaceAll("<","&lt;")
+	.replaceAll(">","&gt;")
+	.replaceAll("\"","&quot;")
+	.replaceAll("'","&#39;");
+
+	//console.log("encodeHTMLEntities:"+text+"|"+_htmlent);
+	return _htmlent;
 }
 
 function inputEditThought(event){
@@ -93,9 +99,8 @@ function inputEditThought(event){
 	let changed_thought = originator.textContent.trim();
 
 	console.log("edit id="+thought_id, "|"+original_thought+"|", "|"+changed_thought+"|");
-
 	
-	let _b = originator.parentElement.parentElement.querySelectorAll("button.gruppo-edit-buttons");
+	let _b = document.querySelectorAll('.gruppo-edit-buttons[data-thought-id="'+thought_id+'"]');
 	let _d = (original_thought == changed_thought);
 	for(let li=0; li<_b.length; li++){
 		_b[li].disabled = _d;
@@ -109,10 +114,11 @@ function restoreThought(event){
 
 	let _bq_array = document.querySelectorAll('.editable-blockquote[data-thought-id="'+thought_id+'"]');
 	if(_bq_array.length>0){
-		//_bq_array[0].blur();
+
 		let _t = _bq_array[0].getAttribute("data-original-thought");
+		// lo ripristino
 		_bq_array[0].textContent = _t;
-		
+		//  e siccome è cambiato scateno su di lui un evento di input in modo che i bottoni si aggiornino
 		var event = new Event('input');
 		_bq_array[0].dispatchEvent(event);
 	}
@@ -123,7 +129,32 @@ function editThought(event){
 	let thought_id = originator.getAttribute('data-thought-id');
 	console.log("edit id="+thought_id);
 
-	// TODO
+	let _bq_array = document.querySelectorAll('.editable-blockquote[data-thought-id="'+thought_id+'"]');
+	if(_bq_array.length>0){
+
+		let thought = _bq_array[0].textContent;
+
+		fetch(base_url+"edit?id="+encodeURIComponent(thought_id)
+			+"&thought="+encodeURIComponent(thought.trim())
+			+"&token="+encodeURIComponent(me.token))
+		.then(function(response) {
+			return response.json();
+		})
+		.then(function(json) {
+				
+				console.log(json);
+
+				if(json.result !== 0){
+					alert("Error "+json.result+" in editThought: "+json.message);
+				}
+				refreshThoughts();
+				
+		})
+		.catch(function(err) { 
+				alert(err);
+				console.log('Failed to fetch page: ', err);
+		});
+	}
 	
 }
 
@@ -229,7 +260,7 @@ function createThought(event){
 
 	let thought = textarea_thought.value;
 
-	fetch(base_url+"create?thought="+encodeURIComponent(thought)
+	fetch(base_url+"create?thought="+encodeURIComponent(thought.trim())
 		+"&token="+encodeURIComponent(me.token))
 	.then(function(response) {
 		return response.json();
