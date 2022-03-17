@@ -38,10 +38,10 @@
 		</header>
 		
 		<!-- Begin page content -->
-		<main class="flex-shrink-0">
-			<div class="container">
+		<main class="flex-shrink-0 main-container">
+			<div class="container control-sticky">
 				<div class="input-group mb-3">
-					<textarea class="form-control" id="textarea-thought" rows="3"></textarea>
+					<textarea class="form-control no-resize" id="textarea-thought" rows="3"></textarea>
 					<button class="btn btn-primary" type="button" id="button-create-thought">Write Thought</button>
 				</div>
 				<div class="input-group mb-3">
@@ -51,12 +51,12 @@
 					</select>
 				</div>
 			</div>
-			<div class="container" id="thoughts-container">
+			<div class="container thoughts-scrollable" id="thoughts-container">
 				
 			</div>
 		</main>
 
-		<footer class="footer mt-auto py-3 bg-light">
+		<footer class="footer mt-auto py-3 bg-light fixed-bottom">
 			<div class="container">
 				<span class="text-muted">Corso di Javascript 2022.</span>
 				| Welcome <span class="text-muted span-author-name"></span> alias <span class="text-muted span-nickname"></span>
