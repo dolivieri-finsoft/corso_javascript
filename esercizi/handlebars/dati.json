@@ -1,0 +1,25 @@
+{
+    "cripto": [
+        {
+            "name": "BTC", 
+            "status": "up",
+            "value": 3.75
+        },
+        {
+            "name": "ET", 
+            "status": "up",
+            "value": 3.85
+        },
+        {
+            "name": "BBC", 
+            "status": "suspended",
+            "value": 9.75
+        },
+        {
+            "name": "APZ", 
+            "status": "down",
+            "value": 19.75
+        }
+
+    ]
+}

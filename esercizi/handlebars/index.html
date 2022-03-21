@@ -1,0 +1,107 @@
+<html>
+
+<head>
+    <title>boilerplate</title>
+   
+    <style>
+        .stato-up{
+           color: green;
+        }
+        .stato-down{
+           color: red;
+        }
+        .stato-suspended{
+           color: grey;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="titolo_principale">boilerplate</h1>
+    <p>Se usi chrome apri la finestra developer tools (..., altri strumenti, strumenti per sviluppatori).</p>
+    <p>Per vedere i console.log inseriti in javascript di esempio (mostrare il tab console).</p>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>status</th>
+                <th>value</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tabella-tbody">
+
+        </tbody>
+
+    </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script>
+        //DONE 1 caricare i dati json allo startup
+        //DONE 2 impaginare i dati in una table con header
+        //DONE 3 le righe up devono essere colorate di verde, le righe down rosse, le suspended grigie
+        //DONE 4 le righe con un valore >=10 devono presentare una icona stella in una col aggiuntiva
+        // NB il tutto con handleBars JS
+        "use strict";
+
+        let dati = null;
+        let template_html = null;
+        let template_hb= null;
+        let t_body= null;
+
+        Handlebars.registerHelper('stella', function (value) {
+            if(value>=10){
+                return "★";
+            }
+            return "";
+        })
+
+        window.addEventListener(
+            'DOMContentLoaded',
+            function (event) {
+                t_body=document.getElementById("tabella-tbody");
+                template_html = document.getElementById("tabella_template").innerHTML;
+                template_hb = Handlebars.compile(template_html);
+                carica();
+
+            }
+        );
+
+        function carica() {
+            fetch("./dati.json")
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (json) {
+                    dati = json;
+                    console.log(dati);
+                    disegna_tabella();
+                });
+        }
+
+        function disegna_tabella(){
+            t_body.innerHTML=template_hb(dati);
+
+        }
+    </script>
+
+    <h2 id="titolo_2">Output del programma</h2>
+    <div id="output_codice"></div>
+
+
+    <script id="tabella_template" type="text/x-handlebars-template">
+        {{#each cripto}}
+        <tr class="stato-{{status}}" >
+            <td>{{name}}</td>
+            <td>{{status}}</td>
+            <td>{{value}}</td>
+            <td>{{stella value}}</td>
+        </tr>
+        {{/each}}
+    </script>
+
+</body>
+
+</html>
