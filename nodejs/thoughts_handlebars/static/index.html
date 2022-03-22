@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Thoughts">
+    <meta name="description" content="Thoughts for Handlebars">
     <meta name="author" content="Corso Javascript">
     <title>Thoughts</title>
 
@@ -22,7 +22,7 @@
 			<!-- Fixed navbar -->
 			<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
 				<div class="container-fluid">
-					<a class="navbar-brand" href="#">Thoughts</a>
+					<a class="navbar-brand" href="#">Thoughts Handlebars Edition</a>
 					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
@@ -89,41 +89,44 @@
 			</div>
 		</div>
 
-		<div id="template-storage" style="display:none">
-		
-			<div id="template-thought">
-				<div class="thought-box">
-					<figure class="text-center">
-						<blockquote class="blockquote editable-blockquote" contenteditable="{{ismythought_switch}}" data-thought-id="{{id}}" data-original-thought="{{thought}}">
-							{{thought}}
-						</blockquote>
-						<figcaption class="blockquote-footer">
-							Written by <cite title="Author">{{author}}</cite>
-						</figcaption>
-					</figure>
-					<div class="appreciate-bar">
-						<div class="voters-list {{has_likes}}">appreciated by <cite>{{voters}}</cite></div>
+		<!-- HANDLEBARS INLNE TEMPLATES -->
 
-						<button type="button" class="btn btn-light position-relative restore-thought gruppo-edit-buttons nascondi" data-thought-id="{{id}}" {{appreciate_switch}}><i class="bi bi-arrow-counterclockwise"></i></button>
-						<button type="button" class="btn btn-success position-relative edit-thought gruppo-edit-buttons nascondi" data-thought-id="{{id}}" {{appreciate_switch}}><i class="bi bi-save"></i></button>
+		<script id="template-thoughts" type="text/x-handlebars-template">
+			{{#each this}}
+			<div class="thought-box">
+				<figure class="text-center">
+					<blockquote class="blockquote editable-blockquote" contenteditable="{{ismythought_switch nickname}}" data-thought-id="{{id}}" data-original-thought="{{thought}}">
+						{{thought}}
+					</blockquote>
+					<figcaption class="blockquote-footer">
+						Written by <cite title="Author">{{author}}</cite>
+					</figcaption>
+				</figure>
+				<div class="appreciate-bar">
+					<div class="voters-list {{has_likes likes}}">appreciated by <cite>{{voters likes}}</cite></div>
 
-						<button type="button" class="btn btn-danger position-relative delete-thought {{ismine_switch}}" data-thought-id="{{id}}"><i class="bi bi-trash"></i></button>
-						<div class="likes-wrapper" title="{{voters}}">
-							<button type="button" class="btn position-relative appreciate-thought {{appreciate-class-toggle}}" data-thought-id="{{id}}" {{appreciate_switch}}>
-								<i class="bi bi-star-fill"></i>
-								<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-									{{likes}}
-									<span class="visually-hidden">Appreciations</span>
-								</span>
-							</button>
-						</div>
+					<button type="button" class="btn btn-light position-relative restore-thought gruppo-edit-buttons nascondi" data-thought-id="{{id}}" {{appreciate_switch nickname}}><i class="bi bi-arrow-counterclockwise"></i></button>
+					<button type="button" class="btn btn-success position-relative edit-thought gruppo-edit-buttons nascondi" data-thought-id="{{id}}" {{appreciate_switch nickname}}><i class="bi bi-save"></i></button>
+
+					<button type="button" class="btn btn-danger position-relative delete-thought {{ismine_switch nickname}}" data-thought-id="{{id}}"><i class="bi bi-trash"></i></button>
+					<div class="likes-wrapper" title="{{voters likes}}">
+						<button type="button" class="btn position-relative appreciate-thought {{appreciate_class_toggle likes}}" data-thought-id="{{id}}" {{appreciate_switch nickname}}>
+							<i class="bi bi-star-fill"></i>
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+								{{length likes}}
+								<span class="visually-hidden">Appreciations</span>
+							</span>
+						</button>
 					</div>
 				</div>
 			</div>
+			{{/each}}
+		</script>
 
-		</div>
+		<!-- JAVASCRIPT SOURCES -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 		<script src="js/thoughts.js"></script>
 
   </body>

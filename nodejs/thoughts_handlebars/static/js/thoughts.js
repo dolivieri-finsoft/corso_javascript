@@ -2,13 +2,45 @@
 
 const base_url = "http://127.0.0.1:10001/";
 let loginModal = null;
-let template_thought = null;
+let render_thoughts = null;
 let me = null;
 let order_select = null;
 let button_save_thought = null;
 let textarea_thought = null;
 
-console.log("Thoughts front-end loaded");
+console.log("Thoughts for Handlebars front-end loaded");
+
+// Handlebars Helpers
+
+Handlebars.registerHelper('ismythought_switch', function (nickname) {
+	return (me.nickname == nickname)?"true":"false";
+})
+
+Handlebars.registerHelper('has_likes', function (likes) {
+	return (likes.length > 0)?"":"nascondi";
+})
+
+Handlebars.registerHelper('voters', function (likes) {
+	return (Array.isArray(likes))?likes.join(', '):"";
+})
+
+Handlebars.registerHelper('ismine_switch', function (nickname) {
+	return (me.nickname == nickname)?"":"nascondi";
+})
+
+Handlebars.registerHelper('appreciate_class_toggle', function (likes) {
+	return (likes.includes(me.nickname))?"btn-primary":"btn-outline-primary";
+})
+
+Handlebars.registerHelper('appreciate_switch', function (nickname) {
+	return (me.nickname == nickname)?"disabled":"";
+})
+
+Handlebars.registerHelper('length', function (a) {
+	return (Array.isArray(a))?a.length:0;
+})
+
+// back-end functions
 
 function login(event){
 
@@ -242,24 +274,7 @@ function refreshThoughts(event){
 		if(json.result !== 0){
 			alert("Error "+json.result+" in refreshThoughts: "+json.message);
 		} else {
-			for(let li=0; li<json.data.length; li++){
-				let row = template_thought;
-				let ismine_switch = (me.nickname == json.data[li].nickname)?"":"nascondi";
-				let has_likes = (json.data[li].likes.length > 0)?"":"nascondi";
-				let ismythought_switch = (me.nickname == json.data[li].nickname)?"true":"false";
-				let appreciate_switch = (me.nickname == json.data[li].nickname)?"disabled":"";
-				let appreciate_class_toggle = (json.data[li].likes.includes(me.nickname))?"btn-primary":"btn-outline-primary";
-				rows += row.replaceAll("{{id}}", json.data[li].id)
-					.replaceAll("{{thought}}", encodeHTMLEntities(json.data[li].thought))
-					.replaceAll("{{likes}}", json.data[li].likes.length)
-					.replaceAll("{{author}}", json.data[li].author)
-					.replaceAll("{{ismythought_switch}}", ismythought_switch)
-					.replaceAll("{{ismine_switch}}", ismine_switch)
-					.replaceAll("{{has_likes}}", has_likes)
-					.replaceAll("{{appreciate_switch}}", appreciate_switch)
-					.replaceAll("{{voters}}", json.data[li].likes.join(', '))
-					.replaceAll("{{appreciate-class-toggle}}", appreciate_class_toggle);
-			}
+			rows = render_thoughts(json.data);
 		}
 		document.getElementById("thoughts-container").innerHTML = rows;
 		agganciaEventiAppreciateDeleteEdit();
@@ -301,7 +316,7 @@ window.addEventListener(
 	'DOMContentLoaded', 
 	function(event){
 
-		template_thought = document.getElementById("template-thought").innerHTML;
+		render_thoughts = Handlebars.compile( document.getElementById("template-thoughts").innerHTML );
 
 		let bottoniRefreshThoughts = document.getElementsByClassName("refresh-thoughts");
 		for(let li=0; li<bottoniRefreshThoughts.length; li++){
@@ -321,19 +336,4 @@ window.addEventListener(
 		formLogin.addEventListener("submit", login);
 
 		loginModal.show();
-
-			/*data_list = document.getElementById("data-list");
-			item_template = data_list.innerHTML;
-			
-			btn_add_thought = document.getElementById("btn_add_thought");
-			btn_add_thought.addEventListener('click',addThought)
-			
-			input_text = document.getElementById("input_thought");
-
-			order_select = document.getElementById("table_order_select");
-			order_select.addEventListener("change", orderChange);
-
-			data_list.innerHTML="";
-			getAllThoughts();
-			*/
 });
