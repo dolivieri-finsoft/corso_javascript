@@ -1,0 +1,56 @@
+main {
+	padding: 60px 15px 0;
+}
+
+.thought-box{
+	border: 1px solid #cdd4da;
+	padding: 2rem 1rem 1rem 1rem;
+}
+.appreciate-bar{
+	text-align: right;
+}
+
+.likes-wrapper{
+	display:inline;
+}
+.voters-list{
+	display:inline;
+}
+
+.main-container{
+	position: absolute;
+	top: 4rem;
+	bottom: 4rem;
+	left: 0;
+	right: 0;
+}
+
+.control-sticky{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 10rem;
+	/*border:1px solid red;*/
+}
+.thoughts-scrollable{
+	position: absolute;
+	top: 10rem;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	/*border:1px solid green;*/
+	overflow:auto;
+}
+
+.no-resize{
+	resize:none;
+}
+
+.modificato{
+	background-color:gold;
+}
+
+.nascondi{
+	display:none
+}

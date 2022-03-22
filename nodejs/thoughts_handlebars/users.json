@@ -1,0 +1,20 @@
+[
+	{
+		"nickname":"dino",
+		"password":"123",
+		"token":"abcdefgh546373",
+		"author":"Dino Olivieri"
+	},
+	{
+		"nickname":"pino",
+		"password":"456",
+		"token":"gfdklgjfdlkgjd",
+		"author":"Giuseppe Rossi"
+	},
+	{
+		"nickname":"gino",
+		"password":"789",
+		"token":"gfgfkldjghfdghfkldjh",
+		"author":"Giovanni Verdi"
+	}
+]

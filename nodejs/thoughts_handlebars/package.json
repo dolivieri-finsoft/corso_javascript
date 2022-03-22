@@ -1,0 +1,22 @@
+{
+  "name": "thoughts",
+  "version": "1.0.1",
+  "description": "piccola app fe e be per gestire un diario (log) - template gestiti con handlebars",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "post",
+    "log",
+    "diario",
+    "social",
+    "bacheca",
+    "handlebars"
+  ],
+  "author": "Dino Olivieri",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
